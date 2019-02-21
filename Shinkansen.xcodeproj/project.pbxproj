@@ -8,12 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		F422150A21FE14E100988D7D /* Shinkansen.h in Headers */ = {isa = PBXBuildFile; fileRef = F422150821FE14E100988D7D /* Shinkansen.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4E0A1CF221C6D7A00F3CEED /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1CE221C6D7A00F3CEED /* Section.swift */; };
+		F4E0A1D1221C6D9E00F3CEED /* SectionConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */; };
+		F4E0A1D3221C6DD500F3CEED /* SectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */; };
+		F4E0A1D5221C6DF700F3CEED /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D4221C6DF700F3CEED /* TableViewSection.swift */; };
+		F4E0A1D8221C6E4F00F3CEED /* TableViewShinkansen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */; };
+		F4E0A1E0221C7FA500F3CEED /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1DF221C7FA500F3CEED /* ReusableView.swift */; };
+		F4E0A1E2221C7FDD00F3CEED /* UIView+ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1E1221C7FDD00F3CEED /* UIView+ReusableView.swift */; };
+		F4E0A1E4221C80D000F3CEED /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1E3221C80D000F3CEED /* NibLoadableView.swift */; };
+		F4E0A1E6221C815D00F3CEED /* UIView+NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1E5221C815D00F3CEED /* UIView+NibLoadableView.swift */; };
+		F4E0A1E8221C821700F3CEED /* UITableView+Registering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1E7221C821700F3CEED /* UITableView+Registering.swift */; };
+		F4E0A1EA221C8CEE00F3CEED /* UITableView+Dequeueing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1E9221C8CEE00F3CEED /* UITableView+Dequeueing.swift */; };
+		F4E0A1EC221C982200F3CEED /* SectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */; };
+		F4E0A1EE221C996500F3CEED /* TableViewDataSourceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1ED221C996500F3CEED /* TableViewDataSourceSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F422150521FE14E100988D7D /* Shinkansen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shinkansen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F422150821FE14E100988D7D /* Shinkansen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shinkansen.h; sourceTree = "<group>"; };
 		F422150921FE14E100988D7D /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		F4E0A1CE221C6D7A00F3CEED /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionConductor.swift; sourceTree = "<group>"; };
+		F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionChange.swift; sourceTree = "<group>"; };
+		F4E0A1D4221C6DF700F3CEED /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
+		F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewShinkansen.swift; sourceTree = "<group>"; };
+		F4E0A1DF221C7FA500F3CEED /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		F4E0A1E1221C7FDD00F3CEED /* UIView+ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ReusableView.swift"; sourceTree = "<group>"; };
+		F4E0A1E3221C80D000F3CEED /* NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
+		F4E0A1E5221C815D00F3CEED /* UIView+NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibLoadableView.swift"; sourceTree = "<group>"; };
+		F4E0A1E7221C821700F3CEED /* UITableView+Registering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Registering.swift"; sourceTree = "<group>"; };
+		F4E0A1E9221C8CEE00F3CEED /* UITableView+Dequeueing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Dequeueing.swift"; sourceTree = "<group>"; };
+		F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDataSource.swift; sourceTree = "<group>"; };
+		F4E0A1ED221C996500F3CEED /* TableViewDataSourceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,8 +74,29 @@
 			children = (
 				F422150821FE14E100988D7D /* Shinkansen.h */,
 				F422150921FE14E100988D7D /* Info-iOS.plist */,
+				F4E0A1E3221C80D000F3CEED /* NibLoadableView.swift */,
+				F4E0A1DF221C7FA500F3CEED /* ReusableView.swift */,
+				F4E0A1CE221C6D7A00F3CEED /* Section.swift */,
+				F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */,
+				F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */,
+				F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */,
+				F4E0A1D6221C6E3700F3CEED /* iOS */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		F4E0A1D6221C6E3700F3CEED /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0A1ED221C996500F3CEED /* TableViewDataSourceSection.swift */,
+				F4E0A1D4221C6DF700F3CEED /* TableViewSection.swift */,
+				F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */,
+				F4E0A1E9221C8CEE00F3CEED /* UITableView+Dequeueing.swift */,
+				F4E0A1E7221C821700F3CEED /* UITableView+Registering.swift */,
+				F4E0A1E5221C815D00F3CEED /* UIView+NibLoadableView.swift */,
+				F4E0A1E1221C7FDD00F3CEED /* UIView+ReusableView.swift */,
+			);
+			path = iOS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -94,6 +141,7 @@
 				TargetAttributes = {
 					F422150421FE14E100988D7D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -129,6 +177,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4E0A1E4221C80D000F3CEED /* NibLoadableView.swift in Sources */,
+				F4E0A1CF221C6D7A00F3CEED /* Section.swift in Sources */,
+				F4E0A1E2221C7FDD00F3CEED /* UIView+ReusableView.swift in Sources */,
+				F4E0A1D8221C6E4F00F3CEED /* TableViewShinkansen.swift in Sources */,
+				F4E0A1D5221C6DF700F3CEED /* TableViewSection.swift in Sources */,
+				F4E0A1E6221C815D00F3CEED /* UIView+NibLoadableView.swift in Sources */,
+				F4E0A1E0221C7FA500F3CEED /* ReusableView.swift in Sources */,
+				F4E0A1EA221C8CEE00F3CEED /* UITableView+Dequeueing.swift in Sources */,
+				F4E0A1E8221C821700F3CEED /* UITableView+Registering.swift in Sources */,
+				F4E0A1D3221C6DD500F3CEED /* SectionChange.swift in Sources */,
+				F4E0A1EE221C996500F3CEED /* TableViewDataSourceSection.swift in Sources */,
+				F4E0A1EC221C982200F3CEED /* SectionDataSource.swift in Sources */,
+				F4E0A1D1221C6D9E00F3CEED /* SectionConductor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

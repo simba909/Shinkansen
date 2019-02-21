@@ -13,6 +13,8 @@
 		F4B6D71C21FE17A6003BB04D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B6D71B21FE17A6003BB04D /* Assets.xcassets */; };
 		F4B6D71F21FE17A6003BB04D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B6D71D21FE17A6003BB04D /* LaunchScreen.storyboard */; };
 		F4B6D72821FE1867003BB04D /* Shinkansen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4B6D72721FE1867003BB04D /* Shinkansen.framework */; };
+		F4E0A1DB221C7EEC00F3CEED /* SimpleTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D9221C7EEC00F3CEED /* SimpleTextTableViewCell.swift */; };
+		F4E0A1DC221C7EEC00F3CEED /* SimpleTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4E0A1DA221C7EEC00F3CEED /* SimpleTextTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		F4B6D71E21FE17A6003BB04D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4B6D72021FE17A6003BB04D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B6D72721FE1867003BB04D /* Shinkansen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Shinkansen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4E0A1D9221C7EEC00F3CEED /* SimpleTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextTableViewCell.swift; sourceTree = "<group>"; };
+		F4E0A1DA221C7EEC00F3CEED /* SimpleTextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTextTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,12 +62,13 @@
 		F4B6D71321FE17A5003BB04D /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				F4B6D72021FE17A6003BB04D /* Info.plist */,
 				F4B6D71421FE17A5003BB04D /* AppDelegate.swift */,
 				F4B6D71621FE17A5003BB04D /* ViewController.swift */,
-				F4B6D71821FE17A5003BB04D /* Main.storyboard */,
 				F4B6D71B21FE17A6003BB04D /* Assets.xcassets */,
 				F4B6D71D21FE17A6003BB04D /* LaunchScreen.storyboard */,
-				F4B6D72021FE17A6003BB04D /* Info.plist */,
+				F4B6D71821FE17A5003BB04D /* Main.storyboard */,
+				F4E0A1DD221C7EF600F3CEED /* Views */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -74,6 +79,23 @@
 				F4B6D72721FE1867003BB04D /* Shinkansen.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4E0A1DD221C7EF600F3CEED /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0A1DE221C7EFE00F3CEED /* TableViewCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F4E0A1DE221C7EFE00F3CEED /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0A1D9221C7EEC00F3CEED /* SimpleTextTableViewCell.swift */,
+				F4E0A1DA221C7EEC00F3CEED /* SimpleTextTableViewCell.xib */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +158,7 @@
 			files = (
 				F4B6D71F21FE17A6003BB04D /* LaunchScreen.storyboard in Resources */,
 				F4B6D71C21FE17A6003BB04D /* Assets.xcassets in Resources */,
+				F4E0A1DC221C7EEC00F3CEED /* SimpleTextTableViewCell.xib in Resources */,
 				F4B6D71A21FE17A5003BB04D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4B6D71721FE17A5003BB04D /* ViewController.swift in Sources */,
+				F4E0A1DB221C7EEC00F3CEED /* SimpleTextTableViewCell.swift in Sources */,
 				F4B6D71521FE17A5003BB04D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
