@@ -34,11 +34,11 @@ public class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionVi
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.itemCount
+        return dataSource.items.count
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = dataSource.getItem(at: indexPath.row)
+        let item = dataSource.items[indexPath.row]
         return cellConfigurator(collectionView, indexPath, item)
     }
 }

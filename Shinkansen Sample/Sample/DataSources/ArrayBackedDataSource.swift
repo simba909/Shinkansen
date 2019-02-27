@@ -9,17 +9,9 @@
 import Shinkansen
 
 struct ArrayBackedDataSource: SectionDataSource {
-    let values: [String]
-
-    var itemCount: Int {
-        return values.count
-    }
+    let items: [String]
 
     func setConductor(_ conductor: SectionConductor) {
         // Unused
-    }
-
-    func getItem(at index: Int) -> String {
-        return values[index]
     }
 }

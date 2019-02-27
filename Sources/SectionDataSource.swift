@@ -10,8 +10,7 @@ import Foundation
 public protocol SectionDataSource {
     associatedtype Item
 
-    var itemCount: Int { get }
+    var items: [Item] { get }
 
     func setConductor(_ conductor: SectionConductor)
-    func getItem(at index: Int) -> Item
 }

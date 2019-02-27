@@ -48,11 +48,11 @@ public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection 
     // MARK: - UITableViewDataSource
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.itemCount
+        return dataSource.items.count
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = dataSource.getItem(at: indexPath.row)
+        let item = dataSource.items[indexPath.row]
         return cellConfigurator(tableView, indexPath, item)
     }
 
@@ -63,7 +63,7 @@ public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection 
     // MARK: - UITableViewDelegate
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = dataSource.getItem(at: indexPath.row)
+        let item = dataSource.items[indexPath.row]
         rowSelectionClosure?(item)
     }
 }

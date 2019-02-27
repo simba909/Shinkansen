@@ -22,14 +22,14 @@ class ViewController: UITableViewController {
         let section = SimpleTableViewSection(values: ["Meh!", "Baaah..."])
         shinkansen.connectSection(section)
 
-        let peopleDataSource = ArrayBackedDataSource(values: ["Simon", "Minami"])
+        let peopleDataSource = ArrayBackedDataSource(items: ["Simon", "Minami"])
         let peopleSection = shinkansen.createSection(from: peopleDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
             cell.setText(item)
             return cell
         })
         peopleSection.sectionHeader = "People"
 
-        let fruitsDataSource = ArrayBackedDataSource(values: ["Apple", "Banana"])
+        let fruitsDataSource = ArrayBackedDataSource(items: ["Apple", "Banana"])
         let fruitsSection = shinkansen.createSection(from: fruitsDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
             cell.setText(item)
             return cell
