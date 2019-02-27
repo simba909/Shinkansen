@@ -53,6 +53,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F404CD722226FA5400A0566E /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				F4E0A1ED221C996500F3CEED /* TableViewDataSourceSection.swift */,
+				F4E0A1D4221C6DF700F3CEED /* TableViewSection.swift */,
+				F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */,
+				F4E0A1E9221C8CEE00F3CEED /* UITableView+Dequeueing.swift */,
+				F4E0A1E7221C821700F3CEED /* UITableView+Registering.swift */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
 		F42214F921FE14B800988D7D = {
 			isa = PBXGroup;
 			children = (
@@ -88,13 +100,9 @@
 		F4E0A1D6221C6E3700F3CEED /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F4E0A1ED221C996500F3CEED /* TableViewDataSourceSection.swift */,
-				F4E0A1D4221C6DF700F3CEED /* TableViewSection.swift */,
-				F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */,
-				F4E0A1E9221C8CEE00F3CEED /* UITableView+Dequeueing.swift */,
-				F4E0A1E7221C821700F3CEED /* UITableView+Registering.swift */,
 				F4E0A1E5221C815D00F3CEED /* UIView+NibLoadableView.swift */,
 				F4E0A1E1221C7FDD00F3CEED /* UIView+ReusableView.swift */,
+				F404CD722226FA5400A0566E /* UITableView */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
