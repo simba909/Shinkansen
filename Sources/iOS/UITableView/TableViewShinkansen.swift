@@ -14,6 +14,7 @@ public class TableViewShinkansen: NSObject {
         didSet {
             guard let view = view else { return }
             view.dataSource = self
+            view.delegate = self
 
             for section in sections {
                 section.registerCell(in: view)
@@ -74,6 +75,7 @@ public class TableViewShinkansen: NSObject {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension TableViewShinkansen: UITableViewDataSource {
     public func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -94,6 +96,16 @@ extension TableViewShinkansen: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+extension TableViewShinkansen: UITableViewDelegate {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        let localIndexPath = IndexPath(row: indexPath.row, section: 0)
+        section.tableView?(tableView, didSelectRowAt: localIndexPath)
+    }
+}
+
+// MARK: - SectionConductor
 extension TableViewShinkansen: SectionConductor {
     public func reloadSection(_ section: Section) {
         guard let tableView = view,

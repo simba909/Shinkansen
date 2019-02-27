@@ -35,6 +35,9 @@ class ViewController: UITableViewController {
             return cell
         })
         fruitsSection.sectionHeader = "Fruits"
+        fruitsSection.rowSelectionClosure = { fruit in
+            print("Selected fruit: \(fruit)")
+        }
     }
 }
 

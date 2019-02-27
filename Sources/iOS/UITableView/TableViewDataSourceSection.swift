@@ -17,6 +17,8 @@ public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection 
 
     var cellRegistrationClosure: ((UITableView) -> Void)?
 
+    public var rowSelectionClosure: ((DataSource.Item) -> Void)?
+
     public var sectionHeader: String? {
         didSet {
             conductor?.reloadSection(self)
@@ -52,5 +54,12 @@ public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection 
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sectionHeader
+    }
+
+    // MARK: - UITableViewDelegate
+
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = dataSource.getItem(at: indexPath.row)
+        rowSelectionClosure?(item)
     }
 }

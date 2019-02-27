@@ -7,6 +7,6 @@
 
 import UIKit
 
-public protocol TableViewSection: Section, UITableViewDataSource {
+public protocol TableViewSection: Section, UITableViewDataSource, UITableViewDelegate {
     func registerCell(in tableView: UITableView)
 }
