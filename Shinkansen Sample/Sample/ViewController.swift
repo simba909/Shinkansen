@@ -15,6 +15,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "Sample"
+
         shinkansen.view = tableView
 
         let section = SimpleSection(values: ["Meh!", "Baaah..."])
