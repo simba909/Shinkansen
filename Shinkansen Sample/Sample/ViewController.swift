@@ -23,16 +23,18 @@ class ViewController: UITableViewController {
         shinkansen.connectSection(section)
 
         let peopleDataSource = SimpleDataSource(values: ["Simon", "Minami"])
-        shinkansen.createSection(from: peopleDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
+        let peopleSection = shinkansen.createSection(from: peopleDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
             cell.setText(item)
             return cell
         })
+        peopleSection.sectionHeader = "People"
 
         let fruitsDataSource = SimpleDataSource(values: ["Apple", "Banana"])
-        shinkansen.createSection(from: fruitsDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
+        let fruitsSection = shinkansen.createSection(from: fruitsDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
             cell.setText(item)
             return cell
         })
+        fruitsSection.sectionHeader = "Fruits"
     }
 }
 

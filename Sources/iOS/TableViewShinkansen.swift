@@ -31,7 +31,13 @@ public class TableViewShinkansen: NSObject {
         sections.append(section)
     }
 
-    public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(from dataSource: DataSource, withCellType cellType: Cell.Type, cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) where Cell: ReusableView {
+    @discardableResult
+    public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
+        from dataSource: DataSource,
+        withCellType cellType: Cell.Type,
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell
+        ) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView {
+
         let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath in
             let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
             let item = dataSource.getItem(at: indexPath.row)
@@ -43,9 +49,16 @@ public class TableViewShinkansen: NSObject {
         }
 
         connectSection(section)
+        return section
     }
 
-    public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(from dataSource: DataSource, withCellType cellType: Cell.Type, cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) where Cell: ReusableView & NibLoadableView {
+    @discardableResult
+    public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
+        from dataSource: DataSource,
+        withCellType cellType: Cell.Type,
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell
+        ) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
+
         let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath in
             let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
             let item = dataSource.getItem(at: indexPath.row)
@@ -57,6 +70,7 @@ public class TableViewShinkansen: NSObject {
         }
 
         connectSection(section)
+        return section
     }
 }
 
@@ -73,9 +87,23 @@ extension TableViewShinkansen: UITableViewDataSource {
         let section = sections[indexPath.section]
         return section.tableView(tableView, cellForRowAt: indexPath)
     }
+
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let section = sections[section]
+        return section.tableView?(tableView, titleForHeaderInSection: 0)
+    }
 }
 
 extension TableViewShinkansen: SectionConductor {
+    public func reloadSection(_ section: Section) {
+        guard let tableView = view,
+            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
+            else { return }
+
+        let sectionIndices = IndexSet([sectionIndex])
+        tableView.reloadSections(sectionIndices, with: .automatic)
+    }
+
     public func section(_ section: Section, reloadedItemsAt indices: [Int], dataSourceUpdateClosure: () -> Void) {
         guard let tableView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
