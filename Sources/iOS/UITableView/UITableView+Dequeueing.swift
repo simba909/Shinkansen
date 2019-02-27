@@ -7,8 +7,8 @@
 
 import UIKit
 
-public extension UITableView {
-    func dequeueReusableCell<Cell: UITableViewCell>(ofType type: Cell.Type, at indexPath: IndexPath) -> Cell where Cell: ReusableView {
+extension UITableView {
+    public func dequeueReusableCell<Cell: UITableViewCell>(ofType type: Cell.Type, at indexPath: IndexPath) -> Cell where Cell: ReusableView {
         let cell = dequeueReusableCell(withIdentifier: type.reuseIdentifier, for: indexPath)
 
         if let cell = cell as? Cell {

@@ -10,6 +10,8 @@
 		F404CD752226FCE900A0566E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F404CD742226FCE900A0566E /* DetailViewController.swift */; };
 		F438826A22271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826822271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift */; };
 		F438826B22271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F438826922271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib */; };
+		F438826E222722FA00CAB7C9 /* SimpleTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */; };
+		F43882712227234100CAB7C9 /* ArrayBackedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43882702227234100CAB7C9 /* ArrayBackedDataSource.swift */; };
 		F4B6D71521FE17A5003BB04D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B6D71421FE17A5003BB04D /* AppDelegate.swift */; };
 		F4B6D71721FE17A5003BB04D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B6D71621FE17A5003BB04D /* ViewController.swift */; };
 		F4B6D71C21FE17A6003BB04D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4B6D71B21FE17A6003BB04D /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 		F404CD742226FCE900A0566E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		F438826822271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextCollectionViewCell.swift; sourceTree = "<group>"; };
 		F438826922271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTextCollectionViewCell.xib; sourceTree = "<group>"; };
+		F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewSection.swift; sourceTree = "<group>"; };
+		F43882702227234100CAB7C9 /* ArrayBackedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayBackedDataSource.swift; sourceTree = "<group>"; };
 		F4B6D71121FE17A5003BB04D /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B6D71421FE17A5003BB04D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B6D71621FE17A5003BB04D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +68,22 @@
 			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
+		F438826C222722E800CAB7C9 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
+		F438826F2227232A00CAB7C9 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				F43882702227234100CAB7C9 /* ArrayBackedDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
 		F4B6D70821FE17A5003BB04D = {
 			isa = PBXGroup;
 			children = (
@@ -87,7 +107,9 @@
 				F4B6D72021FE17A6003BB04D /* Info.plist */,
 				F4B6D71421FE17A5003BB04D /* AppDelegate.swift */,
 				F4B6D71B21FE17A6003BB04D /* Assets.xcassets */,
+				F438826F2227232A00CAB7C9 /* DataSources */,
 				F4B6D71D21FE17A6003BB04D /* LaunchScreen.storyboard */,
+				F438826C222722E800CAB7C9 /* Sections */,
 				F404CD732226FCCE00A0566E /* ViewControllers */,
 				F4E0A1DD221C7EF600F3CEED /* Views */,
 			);
@@ -195,8 +217,10 @@
 				F4B6D71721FE17A5003BB04D /* ViewController.swift in Sources */,
 				F4E0A1DB221C7EEC00F3CEED /* SimpleTextTableViewCell.swift in Sources */,
 				F4B6D71521FE17A5003BB04D /* AppDelegate.swift in Sources */,
+				F43882712227234100CAB7C9 /* ArrayBackedDataSource.swift in Sources */,
 				F404CD752226FCE900A0566E /* DetailViewController.swift in Sources */,
 				F438826A22271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift in Sources */,
+				F438826E222722FA00CAB7C9 /* SimpleTableViewSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

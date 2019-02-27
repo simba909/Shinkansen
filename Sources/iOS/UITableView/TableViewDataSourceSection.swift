@@ -8,14 +8,17 @@
 import UIKit
 
 public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection where DataSource: SectionDataSource {
+
+    public typealias CellConfigurator = (UITableView, IndexPath, DataSource.Item) -> UITableViewCell
+    public typealias CellRegistrator = (UITableView) -> Void
+
     public let id: Int = 0
 
     private let dataSource: DataSource
-    private let cellConfigurator: (UITableView, IndexPath) -> UITableViewCell
+    private let cellConfigurator: CellConfigurator
+    private let cellRegistrator: CellRegistrator
 
     private weak var conductor: SectionConductor?
-
-    var cellRegistrationClosure: ((UITableView) -> Void)?
 
     public var rowSelectionClosure: ((DataSource.Item) -> Void)?
 
@@ -25,9 +28,10 @@ public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection 
         }
     }
 
-    public init(dataSource: DataSource, cellConfigurator: @escaping ((UITableView, IndexPath) -> UITableViewCell)) {
+    public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator, cellRegistrator: @escaping CellRegistrator) {
         self.dataSource = dataSource
         self.cellConfigurator = cellConfigurator
+        self.cellRegistrator = cellRegistrator
 
         super.init()
     }
@@ -38,7 +42,7 @@ public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection 
     }
 
     public func registerCell(in tableView: UITableView) {
-        cellRegistrationClosure?(tableView)
+        cellRegistrator(tableView)
     }
 
     // MARK: - UITableViewDataSource
@@ -48,8 +52,8 @@ public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection 
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = cellConfigurator(tableView, indexPath)
-        return cell
+        let item = dataSource.getItem(at: indexPath.row)
+        return cellConfigurator(tableView, indexPath, item)
     }
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -7,15 +7,15 @@
 
 import UIKit
 
-public extension UITableView {
-    func register<Cell: UITableViewCell>(cellType type: Cell.Type) where Cell: ReusableView {
-        register(type, forCellReuseIdentifier: type.reuseIdentifier)
+extension UITableView {
+    public func register<Cell: UITableViewCell>(_ cellType: Cell.Type) where Cell: ReusableView {
+        register(cellType, forCellReuseIdentifier: cellType.reuseIdentifier)
     }
 
-    func register<Cell: UITableViewCell>(cellType type: Cell.Type) where Cell: ReusableView & NibLoadableView {
-        let bundle = Bundle(for: type)
-        let nib = UINib(nibName: type.nibName, bundle: bundle)
+    public func register<Cell: UITableViewCell>(_ cellType: Cell.Type) where Cell: ReusableView & NibLoadableView {
+        let bundle = Bundle(for: cellType)
+        let nib = UINib(nibName: cellType.nibName, bundle: bundle)
 
-        register(nib, forCellReuseIdentifier: type.reuseIdentifier)
+        register(nib, forCellReuseIdentifier: cellType.reuseIdentifier)
     }
 }

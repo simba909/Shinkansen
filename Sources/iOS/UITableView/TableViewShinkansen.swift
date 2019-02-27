@@ -36,18 +36,14 @@ public class TableViewShinkansen: NSObject, Shinkansen {
     public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
         from dataSource: DataSource,
         withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell
-        ) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView {
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView {
 
-        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath in
+        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
-            let item = dataSource.getItem(at: indexPath.row)
             return cellConfigurator(item, cell)
+        }, cellRegistrator: { tableView in
+            tableView.register(cellType)
         })
-
-        section.cellRegistrationClosure = { tableView in
-            tableView.register(cellType: cellType)
-        }
 
         connectSection(section)
         return section
@@ -57,18 +53,14 @@ public class TableViewShinkansen: NSObject, Shinkansen {
     public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
         from dataSource: DataSource,
         withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell
-        ) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
 
-        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath in
+        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
-            let item = dataSource.getItem(at: indexPath.row)
             return cellConfigurator(item, cell)
+        }, cellRegistrator: { tableView in
+            tableView.register(cellType)
         })
-
-        section.cellRegistrationClosure = { tableView in
-            tableView.register(cellType: cellType)
-        }
 
         connectSection(section)
         return section

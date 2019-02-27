@@ -8,7 +8,7 @@
 import UIKit
 
 extension UICollectionView {
-    func dequeueReusableCell<Cell: UICollectionViewCell>(ofType cellType: Cell.Type, for indexPath: IndexPath) -> Cell where Cell: ReusableView {
+    public func dequeueReusableCell<Cell: UICollectionViewCell>(ofType cellType: Cell.Type, for indexPath: IndexPath) -> Cell where Cell: ReusableView {
         let cell = dequeueReusableCell(withReuseIdentifier: cellType.reuseIdentifier, for: indexPath)
 
         if let cell = cell as? Cell {

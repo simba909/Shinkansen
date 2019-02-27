@@ -30,7 +30,7 @@ class DetailViewController: UICollectionViewController {
         collectionView.backgroundColor = .white
         shinkansen.view = collectionView
 
-        let dataSource = SimpleDataSource(values: ["Metallica", "Slayer"])
+        let dataSource = ArrayBackedDataSource(values: ["Metallica", "Slayer"])
         shinkansen.createSection(from: dataSource, withCellType: SimpleTextCollectionViewCell.self) { item, cell in
             cell.setText(item)
             return cell
