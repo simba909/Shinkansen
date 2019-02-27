@@ -35,8 +35,9 @@ class ViewController: UITableViewController {
             return cell
         })
         fruitsSection.sectionHeader = "Fruits"
-        fruitsSection.rowSelectionClosure = { fruit in
-            print("Selected fruit: \(fruit)")
+        fruitsSection.rowSelectionClosure = { [weak self] fruit in
+            let detailViewController = DetailViewController(title: fruit)
+            self?.navigationController?.pushViewController(detailViewController, animated: true)
         }
     }
 }

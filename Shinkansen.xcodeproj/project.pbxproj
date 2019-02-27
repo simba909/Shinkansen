@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F404CD782226FD2400A0566E /* CollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F404CD772226FD2400A0566E /* CollectionViewSection.swift */; };
+		F404CD7A2226FD7200A0566E /* CollectionViewShinkansen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F404CD792226FD7200A0566E /* CollectionViewShinkansen.swift */; };
+		F404CD7C2226FF9400A0566E /* Shinkansen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F404CD7B2226FF9400A0566E /* Shinkansen.swift */; };
 		F422150A21FE14E100988D7D /* Shinkansen.h in Headers */ = {isa = PBXBuildFile; fileRef = F422150821FE14E100988D7D /* Shinkansen.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F43882622227178500CAB7C9 /* CollectionViewDataSourceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43882612227178500CAB7C9 /* CollectionViewDataSourceSection.swift */; };
+		F438826422271B6400CAB7C9 /* UICollectionView+Dequeueing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826322271B6400CAB7C9 /* UICollectionView+Dequeueing.swift */; };
+		F438826622271C2E00CAB7C9 /* UICollectionView+Registering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826522271C2E00CAB7C9 /* UICollectionView+Registering.swift */; };
 		F4E0A1CF221C6D7A00F3CEED /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1CE221C6D7A00F3CEED /* Section.swift */; };
 		F4E0A1D1221C6D9E00F3CEED /* SectionConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */; };
 		F4E0A1D3221C6DD500F3CEED /* SectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */; };
@@ -24,9 +30,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F404CD772226FD2400A0566E /* CollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewSection.swift; sourceTree = "<group>"; };
+		F404CD792226FD7200A0566E /* CollectionViewShinkansen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewShinkansen.swift; sourceTree = "<group>"; };
+		F404CD7B2226FF9400A0566E /* Shinkansen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shinkansen.swift; sourceTree = "<group>"; };
 		F422150521FE14E100988D7D /* Shinkansen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shinkansen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F422150821FE14E100988D7D /* Shinkansen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shinkansen.h; sourceTree = "<group>"; };
 		F422150921FE14E100988D7D /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
+		F43882612227178500CAB7C9 /* CollectionViewDataSourceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSourceSection.swift; sourceTree = "<group>"; };
+		F438826322271B6400CAB7C9 /* UICollectionView+Dequeueing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Dequeueing.swift"; sourceTree = "<group>"; };
+		F438826522271C2E00CAB7C9 /* UICollectionView+Registering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Registering.swift"; sourceTree = "<group>"; };
 		F4E0A1CE221C6D7A00F3CEED /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionConductor.swift; sourceTree = "<group>"; };
 		F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionChange.swift; sourceTree = "<group>"; };
@@ -65,6 +77,18 @@
 			path = UITableView;
 			sourceTree = "<group>";
 		};
+		F404CD762226FD0900A0566E /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				F43882612227178500CAB7C9 /* CollectionViewDataSourceSection.swift */,
+				F404CD772226FD2400A0566E /* CollectionViewSection.swift */,
+				F404CD792226FD7200A0566E /* CollectionViewShinkansen.swift */,
+				F438826322271B6400CAB7C9 /* UICollectionView+Dequeueing.swift */,
+				F438826522271C2E00CAB7C9 /* UICollectionView+Registering.swift */,
+			);
+			path = UICollectionView;
+			sourceTree = "<group>";
+		};
 		F42214F921FE14B800988D7D = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +116,7 @@
 				F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */,
 				F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */,
 				F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */,
+				F404CD7B2226FF9400A0566E /* Shinkansen.swift */,
 				F4E0A1D6221C6E3700F3CEED /* iOS */,
 			);
 			path = Sources;
@@ -102,6 +127,7 @@
 			children = (
 				F4E0A1E5221C815D00F3CEED /* UIView+NibLoadableView.swift */,
 				F4E0A1E1221C7FDD00F3CEED /* UIView+ReusableView.swift */,
+				F404CD762226FD0900A0566E /* UICollectionView */,
 				F404CD722226FA5400A0566E /* UITableView */,
 			);
 			path = iOS;
@@ -188,14 +214,20 @@
 				F4E0A1E4221C80D000F3CEED /* NibLoadableView.swift in Sources */,
 				F4E0A1CF221C6D7A00F3CEED /* Section.swift in Sources */,
 				F4E0A1E2221C7FDD00F3CEED /* UIView+ReusableView.swift in Sources */,
+				F438826622271C2E00CAB7C9 /* UICollectionView+Registering.swift in Sources */,
+				F43882622227178500CAB7C9 /* CollectionViewDataSourceSection.swift in Sources */,
+				F438826422271B6400CAB7C9 /* UICollectionView+Dequeueing.swift in Sources */,
 				F4E0A1D8221C6E4F00F3CEED /* TableViewShinkansen.swift in Sources */,
+				F404CD7A2226FD7200A0566E /* CollectionViewShinkansen.swift in Sources */,
 				F4E0A1D5221C6DF700F3CEED /* TableViewSection.swift in Sources */,
 				F4E0A1E6221C815D00F3CEED /* UIView+NibLoadableView.swift in Sources */,
+				F404CD782226FD2400A0566E /* CollectionViewSection.swift in Sources */,
 				F4E0A1E0221C7FA500F3CEED /* ReusableView.swift in Sources */,
 				F4E0A1EA221C8CEE00F3CEED /* UITableView+Dequeueing.swift in Sources */,
 				F4E0A1E8221C821700F3CEED /* UITableView+Registering.swift in Sources */,
 				F4E0A1D3221C6DD500F3CEED /* SectionChange.swift in Sources */,
 				F4E0A1EE221C996500F3CEED /* TableViewDataSourceSection.swift in Sources */,
+				F404CD7C2226FF9400A0566E /* Shinkansen.swift in Sources */,
 				F4E0A1EC221C982200F3CEED /* SectionDataSource.swift in Sources */,
 				F4E0A1D1221C6D9E00F3CEED /* SectionConductor.swift in Sources */,
 			);

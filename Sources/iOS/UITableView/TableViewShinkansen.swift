@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class TableViewShinkansen: NSObject {
+public class TableViewShinkansen: NSObject, Shinkansen {
     public private(set) var sections: [TableViewSection] = []
 
     public weak var view: UITableView? {
