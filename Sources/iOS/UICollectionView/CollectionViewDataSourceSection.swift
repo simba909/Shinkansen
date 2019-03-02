@@ -18,6 +18,15 @@ public class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionVi
     private let cellConfigurator: CellConfigurator
     private let cellRegistrator: CellRegistrator
 
+    private weak var conductor: SectionConductor?
+
+    /// The size for each item in this section.
+    public var itemSize: CGSize = defaultItemSize {
+        didSet {
+            conductor?.reloadSection(self)
+        }
+    }
+
     public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator, cellRegistrator: @escaping CellRegistrator) {
         self.dataSource = dataSource
         self.cellConfigurator = cellConfigurator
@@ -26,11 +35,15 @@ public class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionVi
     }
 
     public func setConductor(_ conductor: SectionConductor) {
-        //
+        self.conductor = conductor
     }
 
     public func registerCell(in collectionView: UICollectionView) {
         cellRegistrator(collectionView)
+    }
+
+    public func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
+        return itemSize
     }
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

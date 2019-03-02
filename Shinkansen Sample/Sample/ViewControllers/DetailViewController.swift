@@ -31,9 +31,11 @@ class DetailViewController: UICollectionViewController {
         shinkansen.view = collectionView
 
         let dataSource = ArrayBackedDataSource(items: ["Metallica", "Slayer"])
-        shinkansen.createSection(from: dataSource, withCellType: SimpleTextCollectionViewCell.self) { item, cell in
+        let bandsSection = shinkansen.createSection(from: dataSource, withCellType: SimpleTextCollectionViewCell.self) { item, cell in
             cell.setText(item)
             return cell
         }
+
+        bandsSection.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
     }
 }

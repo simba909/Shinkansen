@@ -38,15 +38,12 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
         withCellType cellType: Cell.Type,
         cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView {
 
-        let section = CollectionViewDataSourceSection(dataSource: dataSource, cellConfigurator: { collectionView, indexPath, item in
+        return createSection(from: dataSource, sectionCellConfigurator: { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(ofType: cellType, for: indexPath)
             return cellConfigurator(item, cell)
-        }, cellRegistrator: { collectionView in
+        }, sectionCellRegistrator: { collectionView in
             collectionView.register(cellType)
         })
-
-        connectSection(section)
-        return section
     }
 
     @discardableResult
@@ -55,12 +52,23 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
         withCellType cellType: Cell.Type,
         cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
 
-        let section = CollectionViewDataSourceSection(dataSource: dataSource, cellConfigurator: { collectionView, indexPath, item in
+        return createSection(from: dataSource, sectionCellConfigurator: { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(ofType: cellType, for: indexPath)
             return cellConfigurator(item, cell)
-        }, cellRegistrator: { collectionView in
+        }, sectionCellRegistrator: { collectionView in
             collectionView.register(cellType)
         })
+    }
+
+    func createSection<DataSource: SectionDataSource>(
+        from dataSource: DataSource,
+        sectionCellConfigurator: @escaping CollectionViewDataSourceSection<DataSource>.CellConfigurator,
+        sectionCellRegistrator: @escaping CollectionViewDataSourceSection<DataSource>.CellRegistrator) -> CollectionViewDataSourceSection<DataSource> {
+
+        let section = CollectionViewDataSourceSection(
+            dataSource: dataSource,
+            cellConfigurator: sectionCellConfigurator,
+            cellRegistrator: sectionCellRegistrator)
 
         connectSection(section)
         return section
@@ -70,7 +78,9 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension CollectionViewShinkansen: UICollectionViewDelegateFlowLayout {
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 56)
+        let section = sections[indexPath.section]
+        let localIndexPath = IndexPath(row: indexPath.row, section: 0)
+        return section.sizeForItem(in: collectionView, at: localIndexPath)
     }
 }
 

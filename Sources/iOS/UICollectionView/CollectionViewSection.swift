@@ -9,4 +9,15 @@ import UIKit
 
 public protocol CollectionViewSection: Section, UICollectionViewDataSource {
     func registerCell(in collectionView: UICollectionView)
+    func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize
+}
+
+public extension CollectionViewSection {
+    static var defaultItemSize: CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 56.0)
+    }
+
+    func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
+        return Self.defaultItemSize
+    }
 }
