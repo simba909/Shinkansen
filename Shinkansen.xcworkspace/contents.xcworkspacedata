@@ -5,6 +5,6 @@
       location = "container:Shinkansen.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Shinkansen Sample/Sample.xcodeproj">
+      location = "group:Sample/Sample.xcodeproj">
    </FileRef>
 </Workspace>
