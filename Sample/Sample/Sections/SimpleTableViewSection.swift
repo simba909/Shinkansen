@@ -9,9 +9,7 @@
 import UIKit
 import Shinkansen
 
-class SimpleTableViewSection: NSObject, TableViewSection {
-    let id: Int = 0
-
+final class SimpleTableViewSection: NSObject, TableViewSection {
     private let values: [String]
 
     private weak var conductor: SectionConductor?

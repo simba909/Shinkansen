@@ -7,12 +7,9 @@
 
 import UIKit
 
-public class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection where DataSource: SectionDataSource {
-
+public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection where DataSource: SectionDataSource {
     public typealias CellConfigurator = (UICollectionView, IndexPath, DataSource.Item) -> UICollectionViewCell
     public typealias CellRegistrator = (UICollectionView) -> Void
-
-    public var id: Int = 0
 
     private let dataSource: DataSource
     private let cellConfigurator: CellConfigurator

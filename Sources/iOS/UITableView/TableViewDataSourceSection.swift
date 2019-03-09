@@ -7,12 +7,9 @@
 
 import UIKit
 
-public class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection where DataSource: SectionDataSource {
-
+public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection where DataSource: SectionDataSource {
     public typealias CellConfigurator = (UITableView, IndexPath, DataSource.Item) -> UITableViewCell
     public typealias CellRegistrator = (UITableView) -> Void
-
-    public let id: Int = 0
 
     private let dataSource: DataSource
     private let cellConfigurator: CellConfigurator
