@@ -24,7 +24,7 @@ final class SimpleTableViewSection: NSObject, TableViewSection {
     }
 
     func registerCell(in tableView: UITableView) {
-        tableView.register(SimpleTextTableViewCell.self)
+        tableView.register(UITableViewCell.self)
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,10 +32,10 @@ final class SimpleTableViewSection: NSObject, TableViewSection {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(ofType: SimpleTextTableViewCell.self, at: indexPath)
+        let cell = tableView.dequeueReusableCell(ofType: UITableViewCell.self, at: indexPath)
 
         let value = values[indexPath.row]
-        cell.setText(value)
+        cell.textLabel?.text = value
         return cell
     }
 }

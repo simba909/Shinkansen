@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire" == 4.8.1
+github "Alamofire/AlamofireImage" == 3.5.0
+github "simba909/DangoKit" "master"
+

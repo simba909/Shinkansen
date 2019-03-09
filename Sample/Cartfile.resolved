@@ -1,0 +1,3 @@
+github "Alamofire/Alamofire" "4.8.1"
+github "Alamofire/AlamofireImage" "3.5.0"
+github "simba909/DangoKit" "9cb75ad2187633587d1580bbfe5721d8fd167c5b"

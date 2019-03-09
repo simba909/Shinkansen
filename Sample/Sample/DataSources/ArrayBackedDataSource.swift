@@ -11,7 +11,7 @@ import Shinkansen
 struct ArrayBackedDataSource: SectionDataSource {
     let items: [String]
 
-    func setConductor(_ conductor: SectionConductor) {
+    func setConductor(_ conductor: DataSourceConductor) {
         // Unused
     }
 }

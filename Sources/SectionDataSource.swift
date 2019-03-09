@@ -12,5 +12,5 @@ public protocol SectionDataSource {
 
     var items: [Item] { get }
 
-    func setConductor(_ conductor: SectionConductor)
+    func setConductor(_ conductor: DataSourceConductor)
 }

@@ -14,9 +14,10 @@
 		F43882622227178500CAB7C9 /* CollectionViewDataSourceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43882612227178500CAB7C9 /* CollectionViewDataSourceSection.swift */; };
 		F438826422271B6400CAB7C9 /* UICollectionView+Dequeueing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826322271B6400CAB7C9 /* UICollectionView+Dequeueing.swift */; };
 		F438826622271C2E00CAB7C9 /* UICollectionView+Registering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826522271C2E00CAB7C9 /* UICollectionView+Registering.swift */; };
+		F4C5F9FE2233BF9000080046 /* DataSourceConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C5F9FD2233BF9000080046 /* DataSourceConductor.swift */; };
+		F4C5FA002233C0EF00080046 /* ChangeSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C5F9FF2233C0EF00080046 /* ChangeSet.swift */; };
 		F4E0A1CF221C6D7A00F3CEED /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1CE221C6D7A00F3CEED /* Section.swift */; };
 		F4E0A1D1221C6D9E00F3CEED /* SectionConductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */; };
-		F4E0A1D3221C6DD500F3CEED /* SectionChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */; };
 		F4E0A1D5221C6DF700F3CEED /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D4221C6DF700F3CEED /* TableViewSection.swift */; };
 		F4E0A1D8221C6E4F00F3CEED /* TableViewShinkansen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */; };
 		F4E0A1E0221C7FA500F3CEED /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1DF221C7FA500F3CEED /* ReusableView.swift */; };
@@ -39,9 +40,10 @@
 		F43882612227178500CAB7C9 /* CollectionViewDataSourceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSourceSection.swift; sourceTree = "<group>"; };
 		F438826322271B6400CAB7C9 /* UICollectionView+Dequeueing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Dequeueing.swift"; sourceTree = "<group>"; };
 		F438826522271C2E00CAB7C9 /* UICollectionView+Registering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Registering.swift"; sourceTree = "<group>"; };
+		F4C5F9FD2233BF9000080046 /* DataSourceConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceConductor.swift; sourceTree = "<group>"; };
+		F4C5F9FF2233C0EF00080046 /* ChangeSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeSet.swift; sourceTree = "<group>"; };
 		F4E0A1CE221C6D7A00F3CEED /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionConductor.swift; sourceTree = "<group>"; };
-		F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionChange.swift; sourceTree = "<group>"; };
 		F4E0A1D4221C6DF700F3CEED /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewShinkansen.swift; sourceTree = "<group>"; };
 		F4E0A1DF221C7FA500F3CEED /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
@@ -110,10 +112,11 @@
 			children = (
 				F422150821FE14E100988D7D /* Shinkansen.h */,
 				F422150921FE14E100988D7D /* Info-iOS.plist */,
+				F4C5F9FF2233C0EF00080046 /* ChangeSet.swift */,
+				F4C5F9FD2233BF9000080046 /* DataSourceConductor.swift */,
 				F4E0A1E3221C80D000F3CEED /* NibLoadableView.swift */,
 				F4E0A1DF221C7FA500F3CEED /* ReusableView.swift */,
 				F4E0A1CE221C6D7A00F3CEED /* Section.swift */,
-				F4E0A1D2221C6DD500F3CEED /* SectionChange.swift */,
 				F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */,
 				F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */,
 				F404CD7B2226FF9400A0566E /* Shinkansen.swift */,
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4C5F9FE2233BF9000080046 /* DataSourceConductor.swift in Sources */,
 				F4E0A1E4221C80D000F3CEED /* NibLoadableView.swift in Sources */,
 				F4E0A1CF221C6D7A00F3CEED /* Section.swift in Sources */,
 				F4E0A1E2221C7FDD00F3CEED /* UIView+ReusableView.swift in Sources */,
@@ -220,12 +224,12 @@
 				F4E0A1D8221C6E4F00F3CEED /* TableViewShinkansen.swift in Sources */,
 				F404CD7A2226FD7200A0566E /* CollectionViewShinkansen.swift in Sources */,
 				F4E0A1D5221C6DF700F3CEED /* TableViewSection.swift in Sources */,
+				F4C5FA002233C0EF00080046 /* ChangeSet.swift in Sources */,
 				F4E0A1E6221C815D00F3CEED /* UIView+NibLoadableView.swift in Sources */,
 				F404CD782226FD2400A0566E /* CollectionViewSection.swift in Sources */,
 				F4E0A1E0221C7FA500F3CEED /* ReusableView.swift in Sources */,
 				F4E0A1EA221C8CEE00F3CEED /* UITableView+Dequeueing.swift in Sources */,
 				F4E0A1E8221C821700F3CEED /* UITableView+Registering.swift in Sources */,
-				F4E0A1D3221C6DD500F3CEED /* SectionChange.swift in Sources */,
 				F4E0A1EE221C996500F3CEED /* TableViewDataSourceSection.swift in Sources */,
 				F404CD7C2226FF9400A0566E /* Shinkansen.swift in Sources */,
 				F4E0A1EC221C982200F3CEED /* SectionDataSource.swift in Sources */,

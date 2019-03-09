@@ -8,7 +8,9 @@
 import Foundation
 
 public protocol SectionConductor: AnyObject {
+    typealias UpdateClosure = () -> Void
+
     func reloadSection(_ section: Section)
-    func section(_ section: Section, reloadedItemsAt indices: [Int], dataSourceUpdateClosure: () -> Void)
-    func section(_ section: Section, performedChanges changes: SectionChange, dataSourceUpdateClosure: () -> Void)
+    func reloadItems(at indices: [Int], for section: Section, dataSourceUpdateClosure: UpdateClosure)
+    func performChanges(_ changes: ChangeSet, for section: Section, dataSourceUpdateClosure: UpdateClosure)
 }

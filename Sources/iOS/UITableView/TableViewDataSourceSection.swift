@@ -35,7 +35,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
 
     public func setConductor(_ conductor: SectionConductor) {
         self.conductor = conductor
-        dataSource.setConductor(conductor)
+        dataSource.setConductor(self)
     }
 
     public func registerCell(in tableView: UITableView) {
@@ -62,5 +62,16 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = dataSource.items[indexPath.row]
         rowSelectionClosure?(item)
+    }
+}
+
+// MARK: - DataSourceConductor
+extension TableViewDataSourceSection: DataSourceConductor {
+    public func reloadItems(at indices: [Int], updateClosure: () -> Void) {
+        conductor?.reloadItems(at: indices, for: self, dataSourceUpdateClosure: updateClosure)
+    }
+
+    public func performChanges(_ changes: ChangeSet, updateClosure: () -> Void) {
+        conductor?.performChanges(changes, for: self, dataSourceUpdateClosure: updateClosure)
     }
 }

@@ -108,7 +108,7 @@ extension TableViewShinkansen: SectionConductor {
         tableView.reloadSections(sectionIndices, with: .automatic)
     }
 
-    public func section(_ section: Section, reloadedItemsAt indices: [Int], dataSourceUpdateClosure: () -> Void) {
+    public func reloadItems(at indices: [Int], for section: Section, dataSourceUpdateClosure: () -> Void) {
         guard let tableView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }
@@ -124,14 +124,14 @@ extension TableViewShinkansen: SectionConductor {
         })
     }
 
-    public func section(_ section: Section, performedChanges changes: SectionChange, dataSourceUpdateClosure: () -> Void) {
+    public func performChanges(_ changes: ChangeSet, for section: Section, dataSourceUpdateClosure: () -> Void) {
         guard let tableView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }
 
         let insertIndexPaths = changes.insertions.map { IndexPath(row: $0, section: sectionIndex) }
         let deletionIndexPaths = changes.deletions.map { IndexPath(row: $0, section: sectionIndex) }
-        let moveIndexPaths = changes.moves.map { move -> (IndexPath, IndexPath) in
+        let moveIndexPaths = changes.moves.map { move -> (origin: IndexPath, destination: IndexPath) in
             return (IndexPath(row: move.from, section: sectionIndex), IndexPath(row: move.to, section: sectionIndex))
         }
 
@@ -144,7 +144,7 @@ extension TableViewShinkansen: SectionConductor {
             tableView.insertRows(at: insertIndexPaths, with: .automatic)
 
             for move in moveIndexPaths {
-                tableView.moveRow(at: move.0, to: move.1)
+                tableView.moveRow(at: move.origin, to: move.destination)
             }
         })
     }

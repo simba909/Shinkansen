@@ -118,7 +118,7 @@ extension CollectionViewShinkansen: SectionConductor {
         collectionView.reloadSections(sectionIndexSet)
     }
 
-    public func section(_ section: Section, reloadedItemsAt indices: [Int], dataSourceUpdateClosure: () -> Void) {
+    public func reloadItems(at indices: [Int], for section: Section, dataSourceUpdateClosure: () -> Void) {
         guard let collectionView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }
@@ -134,7 +134,7 @@ extension CollectionViewShinkansen: SectionConductor {
         })
     }
 
-    public func section(_ section: Section, performedChanges changes: SectionChange, dataSourceUpdateClosure: () -> Void) {
+    public func performChanges(_ changes: ChangeSet, for section: Section, dataSourceUpdateClosure: () -> Void) {
         guard let collectionView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }

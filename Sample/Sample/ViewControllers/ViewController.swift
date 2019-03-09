@@ -8,6 +8,9 @@
 
 import UIKit
 import Shinkansen
+import DangoKit
+
+extension UITableViewCell: ReusableView {}
 
 class ViewController: UITableViewController {
     private let shinkansen = TableViewShinkansen()
@@ -23,15 +26,15 @@ class ViewController: UITableViewController {
         shinkansen.connectSection(section)
 
         let peopleDataSource = ArrayBackedDataSource(items: ["Simon", "Minami"])
-        let peopleSection = shinkansen.createSection(from: peopleDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
-            cell.setText(item)
+        let peopleSection = shinkansen.createSection(from: peopleDataSource, withCellType: UITableViewCell.self, cellConfigurator: { item, cell in
+            cell.textLabel?.text = item
             return cell
         })
         peopleSection.sectionHeader = "People"
 
         let fruitsDataSource = ArrayBackedDataSource(items: ["Apple", "Banana"])
-        let fruitsSection = shinkansen.createSection(from: fruitsDataSource, withCellType: SimpleTextTableViewCell.self, cellConfigurator: { item, cell in
-            cell.setText(item)
+        let fruitsSection = shinkansen.createSection(from: fruitsDataSource, withCellType: UITableViewCell.self, cellConfigurator: { item, cell in
+            cell.textLabel?.text = item
             return cell
         })
         fruitsSection.sectionHeader = "Fruits"
@@ -39,5 +42,14 @@ class ViewController: UITableViewController {
             let detailViewController = DetailViewController(title: fruit)
             self?.navigationController?.pushViewController(detailViewController, animated: true)
         }
+
+        let communicator = AlamofireCommunicator()
+        let repository = PlayingNowRepository(communicator: communicator)
+        let nowPlayingDataSource = PlayingNowDataSource(repository: repository)
+        let nowPlayingSection = shinkansen.createSection(from: nowPlayingDataSource, withCellType: UITableViewCell.self) { item, cell in
+            cell.textLabel?.text = item.currently?.title ?? "Nothing playing"
+            return cell
+        }
+        nowPlayingSection.sectionHeader = "Now playing"
     }
 }
