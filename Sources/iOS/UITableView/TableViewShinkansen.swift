@@ -25,11 +25,17 @@ public class TableViewShinkansen: NSObject, Shinkansen {
     public func connectSection(_ section: TableViewSection) {
         section.setConductor(self)
 
-        if let tableView = view {
-            section.registerCell(in: tableView)
+        guard let tableView = view else {
+            sections.append(section)
+            return
         }
 
-        sections.append(section)
+        section.registerCell(in: tableView)
+        tableView.performBatchUpdates({
+            let sectionIndex = sections.count
+            sections.append(section)
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
+        })
     }
 
     @discardableResult

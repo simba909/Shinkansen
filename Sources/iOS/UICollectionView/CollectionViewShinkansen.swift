@@ -25,11 +25,17 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
     public func connectSection(_ section: CollectionViewSection) {
         section.setConductor(self)
 
-        if let collectionView = view {
-            section.registerCell(in: collectionView)
+        guard let collectionView = view else {
+            sections.append(section)
+            return
         }
 
-        sections.append(section)
+        section.registerCell(in: collectionView)
+        collectionView.performBatchUpdates({
+            let sectionIndex = sections.count
+            sections.append(section)
+            collectionView.insertSections(IndexSet(integer: sectionIndex))
+        })
     }
 
     @discardableResult
