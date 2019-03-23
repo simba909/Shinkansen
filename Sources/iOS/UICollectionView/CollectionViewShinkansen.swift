@@ -109,8 +109,7 @@ extension CollectionViewShinkansen: UICollectionViewDataSource {
 
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let section = sections[indexPath.section]
-        let localIndexPath = IndexPath(row: indexPath.row, section: 0)
-        if let view = section.collectionView?(collectionView, viewForSupplementaryElementOfKind: kind, at: localIndexPath) {
+        if let view = section.collectionView?(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath) {
             return view
         } else {
             return UICollectionReusableView()
