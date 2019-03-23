@@ -20,6 +20,8 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
     private var headerViewRegistrator: HeaderViewRegistrator?
     private var headerViewConfigurator: HeaderViewConfigurator?
 
+    public var headerReferenceSize: CGSize?
+
     private weak var conductor: SectionConductor?
 
     /// The size for each item in this section.
@@ -46,6 +48,14 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
         cellRegistrator(collectionView)
     }
 
+    public func sizeForHeader() -> CGSize {
+        if let headerReferenceSize = headerReferenceSize {
+            return headerReferenceSize
+        }
+
+        return .zero
+    }
+
     public func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
         return itemSize
     }
@@ -61,20 +71,25 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerViewConfigurator = headerViewConfigurator else {
+            let cell: UICollectionReusableView
+
             switch kind {
             case UICollectionView.elementKindSectionHeader:
-                return collectionView.dequeueReusableSupplementaryView(
+                cell = collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
                     withReuseIdentifier: CollectionViewDataSourceSection.placeholderHeaderReuseIdentifier,
                     for: indexPath)
             case UICollectionView.elementKindSectionFooter:
-                return collectionView.dequeueReusableSupplementaryView(
+                cell = collectionView.dequeueReusableSupplementaryView(
                     ofKind: kind,
                     withReuseIdentifier: CollectionViewDataSourceSection.placeholderFooterReuseIdentifier,
                     for: indexPath)
             default:
                 fatalError("Failed to dequeue placeholder header")
             }
+
+            cell.frame.size.height = 0
+            return cell
         }
 
         return headerViewConfigurator(collectionView, indexPath)

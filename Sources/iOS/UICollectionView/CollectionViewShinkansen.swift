@@ -88,6 +88,11 @@ extension CollectionViewShinkansen: UICollectionViewDelegateFlowLayout {
         let localIndexPath = IndexPath(row: indexPath.row, section: 0)
         return section.sizeForItem(in: collectionView, at: localIndexPath)
     }
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let section = sections[section]
+        return section.sizeForHeader()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
