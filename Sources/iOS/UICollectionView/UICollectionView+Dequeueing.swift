@@ -17,4 +17,17 @@ extension UICollectionView {
             fatalError("Failed to dequeue cell of type \(cellType)")
         }
     }
+
+    public func dequeueReusableHeader<HeaderView: UICollectionReusableView>(ofType headerViewType: HeaderView.Type, for indexPath: IndexPath) -> HeaderView where HeaderView: ReusableView {
+        let header = dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: headerViewType.reuseIdentifier,
+            for: indexPath)
+
+        if let header = header as? HeaderView {
+            return header
+        } else {
+            fatalError("Failed to dequeue header of type \(headerViewType)")
+        }
+    }
 }

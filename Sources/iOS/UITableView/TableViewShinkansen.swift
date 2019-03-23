@@ -17,7 +17,7 @@ public class TableViewShinkansen: NSObject, Shinkansen {
             view.delegate = self
 
             for section in sections {
-                section.registerCell(in: view)
+                section.registerCells(in: view)
             }
         }
     }
@@ -30,7 +30,7 @@ public class TableViewShinkansen: NSObject, Shinkansen {
             return
         }
 
-        section.registerCell(in: tableView)
+        section.registerCells(in: tableView)
         tableView.performBatchUpdates({
             let sectionIndex = sections.count
             sections.append(section)
@@ -105,6 +105,15 @@ extension TableViewShinkansen: UITableViewDelegate {
 
 // MARK: - SectionConductor
 extension TableViewShinkansen: SectionConductor {
+    public func registerCellsFor(_ section: Section) {
+        guard let tableView = view,
+            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
+            else { return }
+
+        let section = sections[sectionIndex]
+        section.registerCells(in: tableView)
+    }
+
     public func reloadSection(_ section: Section) {
         guard let tableView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })

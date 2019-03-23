@@ -10,6 +10,7 @@ import Foundation
 public protocol SectionConductor: AnyObject {
     typealias UpdateClosure = () -> Void
 
+    func registerCellsFor(_ section: Section)
     func reloadSection(_ section: Section)
     func reloadItems(at indices: [Int], for section: Section, dataSourceUpdateClosure: UpdateClosure)
     func performChanges(_ changes: ChangeSet, for section: Section, dataSourceUpdateClosure: UpdateClosure)

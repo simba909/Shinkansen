@@ -18,4 +18,15 @@ extension UICollectionView {
 
         register(nib, forCellWithReuseIdentifier: cellType.reuseIdentifier)
     }
+
+    public func registerHeader<Header: UICollectionReusableView>(_ headerType: Header.Type) where Header: ReusableView {
+        register(headerType, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerType.reuseIdentifier)
+    }
+
+    public func registerHeader<Header: UICollectionReusableView>(_ headerType: Header.Type) where Header: ReusableView & NibLoadableView {
+        let bundle = Bundle(for: headerType)
+        let nib = UINib(nibName: headerType.nibName, bundle: bundle)
+
+        register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerType.reuseIdentifier)
+    }
 }

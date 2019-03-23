@@ -8,5 +8,5 @@
 import UIKit
 
 public protocol TableViewSection: Section, UITableViewDataSource, UITableViewDelegate {
-    func registerCell(in tableView: UITableView)
+    func registerCells(in tableView: UITableView)
 }

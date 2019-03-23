@@ -23,7 +23,7 @@ final class SimpleTableViewSection: NSObject, TableViewSection {
         self.conductor = conductor
     }
 
-    func registerCell(in tableView: UITableView) {
+    func registerCells(in tableView: UITableView) {
         tableView.register(UITableViewCell.self)
     }
 

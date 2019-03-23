@@ -20,8 +20,11 @@ class ViewController: UITableViewController {
 
         title = "Sample"
 
+        configureSections()
         shinkansen.view = tableView
+    }
 
+    private func configureSections() {
         let section = SimpleTableViewSection(values: ["Meh!", "Baaah..."])
         shinkansen.connectSection(section)
 

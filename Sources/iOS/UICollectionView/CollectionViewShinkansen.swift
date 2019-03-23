@@ -17,7 +17,7 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
             view.delegate = self
 
             for section in sections {
-                section.registerCell(in: view)
+                section.registerCells(in: view)
             }
         }
     }
@@ -30,7 +30,7 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
             return
         }
 
-        section.registerCell(in: collectionView)
+        section.registerCells(in: collectionView)
         collectionView.performBatchUpdates({
             let sectionIndex = sections.count
             sections.append(section)
@@ -106,6 +106,16 @@ extension CollectionViewShinkansen: UICollectionViewDataSource {
         let localIndexPath = IndexPath(row: indexPath.row, section: 0)
         return section.collectionView(collectionView, cellForItemAt: localIndexPath)
     }
+
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let section = sections[indexPath.section]
+        let localIndexPath = IndexPath(row: indexPath.row, section: 0)
+        if let view = section.collectionView?(collectionView, viewForSupplementaryElementOfKind: kind, at: localIndexPath) {
+            return view
+        } else {
+            return UICollectionReusableView()
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -115,6 +125,15 @@ extension CollectionViewShinkansen: UICollectionViewDelegate {
 
 // MARK: - SectionConductor
 extension CollectionViewShinkansen: SectionConductor {
+    public func registerCellsFor(_ section: Section) {
+        guard let collectionView = view,
+            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
+            else { return }
+
+        let section = sections[sectionIndex]
+        section.registerCells(in: collectionView)
+    }
+
     public func reloadSection(_ section: Section) {
         guard let collectionView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })

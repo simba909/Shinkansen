@@ -8,12 +8,17 @@
 import UIKit
 
 public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection where DataSource: SectionDataSource {
-    public typealias CellConfigurator = (UICollectionView, IndexPath, DataSource.Item) -> UICollectionViewCell
     public typealias CellRegistrator = (UICollectionView) -> Void
+    public typealias HeaderViewRegistrator = (UICollectionView) -> Void
+    public typealias HeaderViewConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
+    public typealias CellConfigurator = (UICollectionView, IndexPath, DataSource.Item) -> UICollectionViewCell
 
     private let dataSource: DataSource
-    private let cellConfigurator: CellConfigurator
     private let cellRegistrator: CellRegistrator
+    private let cellConfigurator: CellConfigurator
+
+    private var headerViewRegistrator: HeaderViewRegistrator?
+    private var headerViewConfigurator: HeaderViewConfigurator?
 
     private weak var conductor: SectionConductor?
 
@@ -35,7 +40,9 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
         self.conductor = conductor
     }
 
-    public func registerCell(in collectionView: UICollectionView) {
+    public func registerCells(in collectionView: UICollectionView) {
+        registerPlaceholderViews(in: collectionView)
+        headerViewRegistrator?(collectionView)
         cellRegistrator(collectionView)
     }
 
@@ -50,5 +57,66 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = dataSource.items[indexPath.row]
         return cellConfigurator(collectionView, indexPath, item)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerViewConfigurator = headerViewConfigurator else {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                return collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: CollectionViewDataSourceSection.placeholderHeaderReuseIdentifier,
+                    for: indexPath)
+            case UICollectionView.elementKindSectionFooter:
+                return collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: CollectionViewDataSourceSection.placeholderFooterReuseIdentifier,
+                    for: indexPath)
+            default:
+                fatalError("Failed to dequeue placeholder header")
+            }
+        }
+
+        return headerViewConfigurator(collectionView, indexPath)
+    }
+
+    private func registerPlaceholderViews(in collectionView: UICollectionView) {
+        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "EmptyHeader")
+    }
+}
+
+extension CollectionViewDataSourceSection {
+    private static var placeholderHeaderReuseIdentifier: String {
+        return "EmptyHeader"
+    }
+
+    private static var placeholderFooterReuseIdentifier: String {
+        return "EmptyFooter"
+    }
+
+    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Header) where Header: ReusableView {
+        setSectionHeader({ collectionView in
+            collectionView.registerHeader(headerType)
+        }, configurator: { collectionView, indexPath in
+            let header = collectionView.dequeueReusableHeader(ofType: headerType, for: indexPath)
+            return configurator(header)
+        })
+    }
+
+    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Header) where Header: ReusableView & NibLoadableView {
+        setSectionHeader({ collectionView in
+            collectionView.registerHeader(headerType)
+        }, configurator: { collectionView, indexPath in
+            let header = collectionView.dequeueReusableHeader(ofType: headerType, for: indexPath)
+            return configurator(header)
+        })
+    }
+
+    private func setSectionHeader(_ registrator: @escaping HeaderViewRegistrator, configurator: @escaping HeaderViewConfigurator) {
+        self.headerViewRegistrator = registrator
+        self.headerViewConfigurator = configurator
+
+        conductor?.registerCellsFor(self)
+        conductor?.reloadSection(self)
     }
 }

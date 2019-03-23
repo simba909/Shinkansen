@@ -38,7 +38,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
         dataSource.setConductor(self)
     }
 
-    public func registerCell(in tableView: UITableView) {
+    public func registerCells(in tableView: UITableView) {
         cellRegistrator(tableView)
     }
 
