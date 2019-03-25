@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol CollectionViewSection: Section, UICollectionViewDataSource {
+public protocol CollectionViewSection: Section, UICollectionViewDelegate, UICollectionViewDataSource {
     func registerCells(in collectionView: UICollectionView)
     func sizeForHeader() -> CGSize
     func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize

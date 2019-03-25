@@ -12,6 +12,7 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
     public typealias HeaderViewRegistrator = (UICollectionView) -> Void
     public typealias HeaderViewConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
     public typealias CellConfigurator = (UICollectionView, IndexPath, DataSource.Item) -> UICollectionViewCell
+    public typealias SelectionHandler = (DataSource.Item) -> Void
 
     private let dataSource: DataSource
     private let cellRegistrator: CellRegistrator
@@ -30,6 +31,8 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
             conductor?.reloadSection(self)
         }
     }
+
+    public var selectionHandler: SelectionHandler?
 
     public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator, cellRegistrator: @escaping CellRegistrator) {
         self.dataSource = dataSource
@@ -95,11 +98,17 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
         return headerViewConfigurator(collectionView, indexPath)
     }
 
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = dataSource.items[indexPath.row]
+        selectionHandler?(item)
+    }
+
     private func registerPlaceholderViews(in collectionView: UICollectionView) {
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "EmptyHeader")
     }
 }
 
+// MARK: - Headers
 extension CollectionViewDataSourceSection {
     private static var placeholderHeaderReuseIdentifier: String {
         return "EmptyHeader"

@@ -124,7 +124,11 @@ extension CollectionViewShinkansen: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 extension CollectionViewShinkansen: UICollectionViewDelegate {
-    //
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        let localIndexPath = IndexPath(row: indexPath.row, section: 0)
+        section.collectionView?(collectionView, didSelectItemAt: localIndexPath)
+    }
 }
 
 // MARK: - SectionConductor
