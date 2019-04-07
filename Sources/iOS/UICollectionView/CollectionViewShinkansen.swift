@@ -66,15 +66,46 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
         })
     }
 
+    public func moveSection(_ section: CollectionViewSection, to destinationIndex: Int) {
+        guard let sectionIndex = sections.firstIndex(where: { $0.id == section.id }) else {
+            return
+        }
+
+        let updateClosure: () -> Void = {
+            self.sections.remove(at: sectionIndex)
+            self.sections.insert(section, at: destinationIndex)
+        }
+
+        guard let collectionView = view else {
+            updateClosure()
+            return
+        }
+
+        collectionView.performBatchUpdates({
+            updateClosure()
+
+            collectionView.moveSection(sectionIndex, toSection: destinationIndex)
+        })
+    }
+
     public func removeSection(_ section: CollectionViewSection) {
-        guard let collectionView = view,
-            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
-            else { return }
+        guard let sectionIndex = sections.firstIndex(where: { $0.id == section.id }) else {
+            return
+        }
+
+        let updateClosure: () -> Void = {
+            self.sections.remove(at: sectionIndex)
+        }
+
+        guard let collectionView = view else {
+            updateClosure()
+            return
+        }
 
         let indexSet = IndexSet(integer: sectionIndex)
 
         collectionView.performBatchUpdates({
-            sections.remove(at: sectionIndex)
+            updateClosure()
             collectionView.deleteSections(indexSet)
         })
     }
