@@ -66,6 +66,19 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
         })
     }
 
+    public func removeSection(_ section: CollectionViewSection) {
+        guard let collectionView = view,
+            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
+            else { return }
+
+        let indexSet = IndexSet(integer: sectionIndex)
+
+        collectionView.performBatchUpdates({
+            sections.remove(at: sectionIndex)
+            collectionView.deleteSections(indexSet)
+        })
+    }
+
     func createSection<DataSource: SectionDataSource>(
         from dataSource: DataSource,
         sectionCellConfigurator: @escaping CollectionViewDataSourceSection<DataSource>.CellConfigurator,
