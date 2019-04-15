@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection where DataSource: SectionDataSource {
+public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection, DataSourceConductor where DataSource: SectionDataSource {
     public typealias CellRegistrator = (UICollectionView) -> Void
     public typealias HeaderViewRegistrator = (UICollectionView) -> Void
     public typealias HeaderViewConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
@@ -43,6 +43,7 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
 
     public func setConductor(_ conductor: SectionConductor) {
         self.conductor = conductor
+        dataSource.setConductor(self)
     }
 
     public func registerCells(in collectionView: UICollectionView) {
@@ -142,5 +143,16 @@ extension CollectionViewDataSourceSection {
 
         conductor?.registerCellsFor(self)
         conductor?.reloadSection(self)
+    }
+}
+
+// MARK: - DataSourceConductor
+extension CollectionViewDataSourceSection {
+    public func reloadItems(at indices: [Int], updateClosure: UpdateClosure) {
+        conductor?.reloadItems(at: indices, for: self, dataSourceUpdateClosure: updateClosure)
+    }
+
+    public func performChanges(_ changes: ChangeSet, updateClosure: UpdateClosure) {
+        conductor?.performChanges(changes, for: self, dataSourceUpdateClosure: updateClosure)
     }
 }
