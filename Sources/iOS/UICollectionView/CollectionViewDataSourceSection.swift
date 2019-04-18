@@ -32,6 +32,24 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
         }
     }
 
+    public var sectionInsets: UIEdgeInsets = .zero {
+        didSet {
+            conductor?.reloadSection(self)
+        }
+    }
+
+    public var minimumLineSpacing: CGFloat = .zero {
+        didSet {
+            conductor?.reloadSection(self)
+        }
+    }
+
+    public var minimumInteritemSpacing: CGFloat = .zero {
+        didSet {
+            conductor?.reloadSection(self)
+        }
+    }
+
     public var selectionHandler: SelectionHandler?
 
     public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator, cellRegistrator: @escaping CellRegistrator) {
@@ -63,6 +81,8 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
     public func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
         return itemSize
     }
+
+    // MARK: - UICollectionViewDataSource
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.items.count
@@ -103,6 +123,8 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
         let item = dataSource.items[indexPath.row]
         selectionHandler?(item)
     }
+
+    // MARK: - Private functions
 
     private func registerPlaceholderViews(in collectionView: UICollectionView) {
         collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "EmptyHeader")
