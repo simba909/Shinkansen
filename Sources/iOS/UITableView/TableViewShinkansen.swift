@@ -124,6 +124,10 @@ extension TableViewShinkansen: SectionConductor {
     }
 
     public func reloadItems(at indices: [Int], for section: Section, dataSourceUpdateClosure: () -> Void) {
+        guard !indices.isEmpty else {
+            return
+        }
+
         guard let tableView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }
