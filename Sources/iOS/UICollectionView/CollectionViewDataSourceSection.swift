@@ -141,21 +141,23 @@ extension CollectionViewDataSourceSection {
         return "EmptyFooter"
     }
 
-    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Header) where Header: ReusableView {
+    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Void) where Header: ReusableView {
         setSectionHeader({ collectionView in
             collectionView.registerHeader(headerType)
         }, configurator: { collectionView, indexPath in
             let header = collectionView.dequeueReusableHeader(ofType: headerType, for: indexPath)
-            return configurator(header)
+            configurator(header)
+            return header
         })
     }
 
-    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Header) where Header: ReusableView & NibLoadableView {
+    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Void) where Header: ReusableView & NibLoadableView {
         setSectionHeader({ collectionView in
             collectionView.registerHeader(headerType)
         }, configurator: { collectionView, indexPath in
             let header = collectionView.dequeueReusableHeader(ofType: headerType, for: indexPath)
-            return configurator(header)
+            configurator(header)
+            return header
         })
     }
 

@@ -14,7 +14,6 @@ class DetailViewController: UICollectionViewController {
 
     init(title: String) {
         let layout = UICollectionViewFlowLayout()
-        layout.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 32)
         super.init(collectionViewLayout: layout)
 
         self.title = title
@@ -33,13 +32,12 @@ class DetailViewController: UICollectionViewController {
         let dataSource = ArrayBackedDataSource(items: ["Metallica", "Slayer"])
         let bandsSection = shinkansen.createSection(from: dataSource, withCellType: SimpleTextCollectionViewCell.self) { item, cell in
             cell.setText(item)
-            return cell
         }
 
         bandsSection.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
+        bandsSection.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 32)
         bandsSection.setHeader(SimpleHeaderSupplementaryView.self) { header in
             header.title = "Collection View Header"
-            return header
         }
 
         shinkansen.view = collectionView

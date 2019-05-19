@@ -42,11 +42,12 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
     public func createSection<DataSource: SectionDataSource, Cell: UICollectionViewCell>(
         from dataSource: DataSource,
         withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView {
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView {
 
         return createSection(from: dataSource, sectionCellConfigurator: { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(ofType: cellType, for: indexPath)
-            return cellConfigurator(item, cell)
+            cellConfigurator(item, cell)
+            return cell
         }, sectionCellRegistrator: { collectionView in
             collectionView.register(cellType)
         })
@@ -56,11 +57,12 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
     public func createSection<DataSource: SectionDataSource, Cell: UICollectionViewCell>(
         from dataSource: DataSource,
         withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
 
         return createSection(from: dataSource, sectionCellConfigurator: { collectionView, indexPath, item in
             let cell = collectionView.dequeueReusableCell(ofType: cellType, for: indexPath)
-            return cellConfigurator(item, cell)
+            cellConfigurator(item, cell)
+            return cell
         }, sectionCellRegistrator: { collectionView in
             collectionView.register(cellType)
         })
