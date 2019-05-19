@@ -42,11 +42,12 @@ public class TableViewShinkansen: NSObject, Shinkansen {
     public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
         from dataSource: DataSource,
         withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView {
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView {
 
         let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
-            return cellConfigurator(item, cell)
+            cellConfigurator(item, cell)
+            return cell
         }, cellRegistrator: { tableView in
             tableView.register(cellType)
         })
@@ -59,11 +60,12 @@ public class TableViewShinkansen: NSObject, Shinkansen {
     public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
         from dataSource: DataSource,
         withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Cell) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
+        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
 
         let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
-            return cellConfigurator(item, cell)
+            cellConfigurator(item, cell)
+            return cell
         }, cellRegistrator: { tableView in
             tableView.register(cellType)
         })
