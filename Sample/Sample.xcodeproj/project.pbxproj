@@ -46,7 +46,6 @@
 		F4B6D72021FE17A6003BB04D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B6D72721FE1867003BB04D /* Shinkansen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Shinkansen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4C5F9FB2233BE7400080046 /* PlayingNowDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingNowDataSource.swift; sourceTree = "<group>"; };
-		F4C5FA012233C51200080046 /* FlexibleDiff.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FlexibleDiff.framework; path = Carthage/Build/iOS/FlexibleDiff.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +144,6 @@
 		F4B6D72621FE1867003BB04D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4C5FA012233C51200080046 /* FlexibleDiff.framework */,
 				F453439422324D3D00403A8E /* Alamofire.framework */,
 				F453439522324D3D00403A8E /* AlamofireImage.framework */,
 				F4798A6D222C187A00472C08 /* DangoKit.framework */,
