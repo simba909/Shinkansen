@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		F404CD752226FCE900A0566E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F404CD742226FCE900A0566E /* DetailViewController.swift */; };
+		F413AF2B2291CBA80080A352 /* RepositoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413AF2A2291CBA80080A352 /* RepositoryDataSource.swift */; };
+		F413AF2E2291CDBD0080A352 /* DifferenceKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F413AF2D2291CDBD0080A352 /* DifferenceKit.framework */; };
+		F413AF302291D4ED0080A352 /* DifferenceKit+Shinkansen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413AF2F2291D4ED0080A352 /* DifferenceKit+Shinkansen.swift */; };
+		F413AF322291D54F0080A352 /* Channel+Differentiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413AF312291D54F0080A352 /* Channel+Differentiable.swift */; };
 		F438826A22271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826822271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift */; };
 		F438826B22271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F438826922271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib */; };
 		F438826E222722FA00CAB7C9 /* SimpleTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */; };
@@ -28,6 +32,10 @@
 
 /* Begin PBXFileReference section */
 		F404CD742226FCE900A0566E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		F413AF2A2291CBA80080A352 /* RepositoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDataSource.swift; sourceTree = "<group>"; };
+		F413AF2D2291CDBD0080A352 /* DifferenceKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DifferenceKit.framework; path = Carthage/Build/iOS/DifferenceKit.framework; sourceTree = "<group>"; };
+		F413AF2F2291D4ED0080A352 /* DifferenceKit+Shinkansen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DifferenceKit+Shinkansen.swift"; sourceTree = "<group>"; };
+		F413AF312291D54F0080A352 /* Channel+Differentiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Channel+Differentiable.swift"; sourceTree = "<group>"; };
 		F438826822271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextCollectionViewCell.swift; sourceTree = "<group>"; };
 		F438826922271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTextCollectionViewCell.xib; sourceTree = "<group>"; };
 		F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewSection.swift; sourceTree = "<group>"; };
@@ -56,6 +64,7 @@
 				F453439622324D3D00403A8E /* Alamofire.framework in Frameworks */,
 				F453439722324D3D00403A8E /* AlamofireImage.framework in Frameworks */,
 				F4798A6E222C187A00472C08 /* DangoKit.framework in Frameworks */,
+				F413AF2E2291CDBD0080A352 /* DifferenceKit.framework in Frameworks */,
 				F4B6D72821FE1867003BB04D /* Shinkansen.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +79,16 @@
 				F404CD742226FCE900A0566E /* DetailViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F413AF2C2291CBC20080A352 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F413AF312291D54F0080A352 /* Channel+Differentiable.swift */,
+				F413AF2F2291D4ED0080A352 /* DifferenceKit+Shinkansen.swift */,
+				F438826F2227232A00CAB7C9 /* DataSources */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F438826722271D6200CAB7C9 /* CollectionViewCells */ = {
@@ -96,6 +115,7 @@
 			children = (
 				F43882702227234100CAB7C9 /* ArrayBackedDataSource.swift */,
 				F4C5F9FB2233BE7400080046 /* PlayingNowDataSource.swift */,
+				F413AF2A2291CBA80080A352 /* RepositoryDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -132,7 +152,7 @@
 				F4B6D71421FE17A5003BB04D /* AppDelegate.swift */,
 				F4B6D71B21FE17A6003BB04D /* Assets.xcassets */,
 				F4B6D71D21FE17A6003BB04D /* LaunchScreen.storyboard */,
-				F438826F2227232A00CAB7C9 /* DataSources */,
+				F413AF2C2291CBC20080A352 /* Models */,
 				F453439322324D1100403A8E /* Networking */,
 				F438826C222722E800CAB7C9 /* Sections */,
 				F404CD732226FCCE00A0566E /* ViewControllers */,
@@ -144,6 +164,7 @@
 		F4B6D72621FE1867003BB04D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F413AF2D2291CDBD0080A352 /* DifferenceKit.framework */,
 				F453439422324D3D00403A8E /* Alamofire.framework */,
 				F453439522324D3D00403A8E /* AlamofireImage.framework */,
 				F4798A6D222C187A00472C08 /* DangoKit.framework */,
@@ -241,6 +262,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/AlamofireImage.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/DangoKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/DifferenceKit.framework",
 			);
 			name = "Carthage Copy Frameworks";
 			outputFileListPaths = (
@@ -249,6 +271,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/AlamofireImage.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/DangoKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/DifferenceKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -267,9 +290,12 @@
 				F404CD752226FCE900A0566E /* DetailViewController.swift in Sources */,
 				F498F6AC224639FB00C8EE16 /* SimpleHeaderSupplementaryView.swift in Sources */,
 				F438826A22271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift in Sources */,
+				F413AF2B2291CBA80080A352 /* RepositoryDataSource.swift in Sources */,
+				F413AF302291D4ED0080A352 /* DifferenceKit+Shinkansen.swift in Sources */,
 				F438826E222722FA00CAB7C9 /* SimpleTableViewSection.swift in Sources */,
 				F4C5F9FC2233BE7400080046 /* PlayingNowDataSource.swift in Sources */,
 				F453439922324DBD00403A8E /* AlamofireCommunicator.swift in Sources */,
+				F413AF322291D54F0080A352 /* Channel+Differentiable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,6 +14,7 @@ extension UITableViewCell: ReusableView {}
 
 class ViewController: UITableViewController {
     private let shinkansen = TableViewShinkansen()
+    private let communicator = AlamofireCommunicator()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,20 +26,17 @@ class ViewController: UITableViewController {
     }
 
     private func configureSections() {
-        let section = SimpleTableViewSection(values: ["Meh!", "Baaah..."])
-        shinkansen.connectSection(section)
+        let channelRepository = ChannelRepository(communicator: communicator)
+        let channelDataSource = RepositoryDataSource(repository: channelRepository)
+        let channelSection = shinkansen.createSection(from: channelDataSource, withCellType: UITableViewCell.self) { channel, cell in
+            cell.textLabel?.text = channel.name
+        }
 
-        let peopleDataSource = ArrayBackedDataSource(items: ["Simon", "Minami"])
-        let peopleSection = shinkansen.createSection(from: peopleDataSource, withCellType: UITableViewCell.self, cellConfigurator: { item, cell in
-            cell.textLabel?.text = item
-            return cell
-        })
-        peopleSection.sectionHeader = "People"
+        channelSection.sectionHeader = "Channels"
 
         let fruitsDataSource = ArrayBackedDataSource(items: ["Apple", "Banana"])
         let fruitsSection = shinkansen.createSection(from: fruitsDataSource, withCellType: UITableViewCell.self, cellConfigurator: { item, cell in
             cell.textLabel?.text = item
-            return cell
         })
         fruitsSection.sectionHeader = "Fruits"
         fruitsSection.rowSelectionClosure = { [weak self] fruit in
@@ -46,12 +44,10 @@ class ViewController: UITableViewController {
             self?.navigationController?.pushViewController(detailViewController, animated: true)
         }
 
-        let communicator = AlamofireCommunicator()
         let repository = PlayingNowRepository(communicator: communicator)
         let nowPlayingDataSource = PlayingNowDataSource(repository: repository)
         let nowPlayingSection = shinkansen.createSection(from: nowPlayingDataSource, withCellType: UITableViewCell.self) { item, cell in
             cell.textLabel?.text = item.currently?.title ?? "Nothing playing"
-            return cell
         }
         nowPlayingSection.sectionHeader = "Now playing"
     }

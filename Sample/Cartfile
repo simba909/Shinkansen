@@ -1,4 +1,5 @@
 github "Alamofire/Alamofire" == 4.8.2
 github "Alamofire/AlamofireImage" == 3.5.2
 github "simba909/DangoKit" "master"
+github "ra1028/DifferenceKit" == 1.1.2
 
