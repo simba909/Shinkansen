@@ -21,6 +21,8 @@ class ViewController: UITableViewController {
 
         title = "Sample"
 
+        tableView.register(UITableViewCell.self)
+
         configureSections()
         shinkansen.view = tableView
     }
@@ -28,16 +30,22 @@ class ViewController: UITableViewController {
     private func configureSections() {
         let channelRepository = ChannelRepository(communicator: communicator)
         let channelDataSource = RepositoryDataSource(repository: channelRepository)
-        let channelSection = shinkansen.createSection(from: channelDataSource, withCellType: UITableViewCell.self) { channel, cell in
+        let channelSection = shinkansen.createSection(from: channelDataSource) { tableView, channel, indexPath in
+            let cell = tableView.dequeueReusableCell(ofType: UITableViewCell.self, at: indexPath)
             cell.textLabel?.text = channel.name
+
+            return cell
         }
 
         channelSection.sectionHeader = "Channels"
 
         let fruitsDataSource = ArrayBackedDataSource(items: ["Apple", "Banana"])
-        let fruitsSection = shinkansen.createSection(from: fruitsDataSource, withCellType: UITableViewCell.self, cellConfigurator: { item, cell in
-            cell.textLabel?.text = item
-        })
+        let fruitsSection = shinkansen.createSection(from: fruitsDataSource) { tableView, fruit, indexPath in
+            let cell = tableView.dequeueReusableCell(ofType: UITableViewCell.self, at: indexPath)
+            cell.textLabel?.text = fruit
+
+            return cell
+        }
         fruitsSection.sectionHeader = "Fruits"
         fruitsSection.rowSelectionClosure = { [weak self] fruit in
             let detailViewController = DetailViewController(title: fruit)
@@ -46,8 +54,11 @@ class ViewController: UITableViewController {
 
         let repository = PlayingNowRepository(communicator: communicator)
         let nowPlayingDataSource = PlayingNowDataSource(repository: repository)
-        let nowPlayingSection = shinkansen.createSection(from: nowPlayingDataSource, withCellType: UITableViewCell.self) { item, cell in
+        let nowPlayingSection = shinkansen.createSection(from: nowPlayingDataSource) { tableView, item, indexPath in
+            let cell = tableView.dequeueReusableCell(ofType: UITableViewCell.self, at: indexPath)
             cell.textLabel?.text = item.currently?.title ?? "Nothing playing"
+
+            return cell
         }
         nowPlayingSection.sectionHeader = "Now playing"
     }

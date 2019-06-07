@@ -15,10 +15,6 @@ public class TableViewShinkansen: NSObject, Shinkansen {
             guard let view = view else { return }
             view.dataSource = self
             view.delegate = self
-
-            for section in sections {
-                section.registerCells(in: view)
-            }
         }
     }
 
@@ -30,7 +26,6 @@ public class TableViewShinkansen: NSObject, Shinkansen {
             return
         }
 
-        section.registerCells(in: tableView)
         tableView.performBatchUpdates({
             let sectionIndex = sections.count
             sections.append(section)
@@ -39,38 +34,13 @@ public class TableViewShinkansen: NSObject, Shinkansen {
     }
 
     @discardableResult
-    public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
+    public func createSection<DataSource: SectionDataSource>(
         from dataSource: DataSource,
-        withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView {
+        cellConfigurator: @escaping TableViewDataSourceSection<DataSource>.CellConfigurator) -> TableViewDataSourceSection<DataSource> {
 
-        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath, item in
-            let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
-            cellConfigurator(item, cell)
-            return cell
-        }, cellRegistrator: { tableView in
-            tableView.register(cellType)
-        })
-
+        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: cellConfigurator)
         connectSection(section)
-        return section
-    }
 
-    @discardableResult
-    public func createSection<DataSource: SectionDataSource, Cell: UITableViewCell>(
-        from dataSource: DataSource,
-        withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> TableViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
-
-        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: { tableView, indexPath, item in
-            let cell = tableView.dequeueReusableCell(ofType: cellType, at: indexPath)
-            cellConfigurator(item, cell)
-            return cell
-        }, cellRegistrator: { tableView in
-            tableView.register(cellType)
-        })
-
-        connectSection(section)
         return section
     }
 }
@@ -108,12 +78,7 @@ extension TableViewShinkansen: UITableViewDelegate {
 // MARK: - SectionConductor
 extension TableViewShinkansen: SectionConductor {
     public func registerCellsFor(_ section: Section) {
-        guard let tableView = view,
-            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
-            else { return }
-
-        let section = sections[sectionIndex]
-        section.registerCells(in: tableView)
+        // Unused. This will be removed in a future version.
     }
 
     public func reloadSection(_ section: Section) {
