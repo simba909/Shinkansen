@@ -15,14 +15,76 @@ class ViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Register your cell
+        collectionView.register(MyCollectionViewCell.self)
+
         // Add your sections
         let dataSource = ArrayBackedDataSource(items: ["First", "Second", "Third"])
-        shinkansen.createSection(from: dataSource, withCellType: SimpleTextCollectionViewCell.self) { item, cell in
-            cell.label.text = item
+        shinkansen.createSection(from: dataSource) { collectionView, item, indexPath in
+            let cell = collectionView.dequeueReusableCell(ofType: MyCollectionViewCell.self, for: indexPath)
+            cell.configureWith(item)
+
+            return cell
         }
 
         // Set the UICollectionView on the Shinkansen instance:
         shinkansen.view = collectionView
+    }
+}
+```
+
+## Usage
+
+### Cells
+Shinkansen includes helpers for registering and dequeueing your cells in a type-safe way. First up is the `ReusableView` protocol:
+
+```swift
+public protocol ReusableView {
+    static var reuseIdentifier: String { get }
+}
+
+// Along with an extension for default behavior:
+
+public extension ReusableView where Self: UIView {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+```
+
+Then, for nib-backed cells, there is `NibLoadableView`:
+
+```swift
+public protocol NibLoadableView {
+    static var nibName: String { get }
+}
+
+// Along with an extension for default behavior:
+
+public extension NibLoadableView where Self: UIView {
+    static var nibName: String {
+        return String(describing: self)
+    }
+}
+```
+
+This allows you to extend your cells and register/dequeue them without having to manage reuse identifiers or nibs:
+
+```swift
+class MyCollectionViewCell: UICollectionViewCell {
+    // Implementation of my cell
+}
+
+extension MyCollectionViewCell: ReusableView {}
+extension MyCollectionViewCell: NibLoadableView {}
+
+// Then, in a ViewController:
+
+class MyViewController: UICollectionViewController {
+    func viewDidLoad() {
+        super.viewDidLoad()
+
+        collectionView.register(MyCollectionViewCell.self)
     }
 }
 ```
