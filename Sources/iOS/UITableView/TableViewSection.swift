@@ -7,4 +7,4 @@
 
 import UIKit
 
-public protocol TableViewSection: Section, UITableViewDataSource, UITableViewDelegate {}
+public protocol TableViewSection: ShinkansenSection, UITableViewDataSource, UITableViewDelegate {}

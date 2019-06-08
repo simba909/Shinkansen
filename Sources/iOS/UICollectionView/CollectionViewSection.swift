@@ -7,12 +7,11 @@
 
 import UIKit
 
-public protocol CollectionViewSection: Section, UICollectionViewDelegate, UICollectionViewDataSource {
+public protocol CollectionViewSection: ShinkansenSection, UICollectionViewDelegate, UICollectionViewDataSource {
     var sectionInsets: UIEdgeInsets { get set }
     var minimumLineSpacing: CGFloat { get set }
     var minimumInteritemSpacing: CGFloat { get set }
 
-    func registerCells(in collectionView: UICollectionView)
     func sizeForHeader() -> CGSize
     func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize
 }

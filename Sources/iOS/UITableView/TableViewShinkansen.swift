@@ -77,11 +77,7 @@ extension TableViewShinkansen: UITableViewDelegate {
 
 // MARK: - SectionConductor
 extension TableViewShinkansen: SectionConductor {
-    public func registerCellsFor(_ section: Section) {
-        // Unused. This will be removed in a future version.
-    }
-
-    public func reloadSection(_ section: Section) {
+    public func reloadSection(_ section: ShinkansenSection) {
         guard let tableView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }
@@ -90,7 +86,7 @@ extension TableViewShinkansen: SectionConductor {
         tableView.reloadSections(sectionIndices, with: .automatic)
     }
 
-    public func reloadItems(at indices: [Int], for section: Section, dataSourceUpdateClosure: () -> Void) {
+    public func reloadItems(at indices: [Int], for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
         guard !indices.isEmpty else {
             return
         }
@@ -110,7 +106,7 @@ extension TableViewShinkansen: SectionConductor {
         })
     }
 
-    public func performChanges(_ changes: ChangeSet, for section: Section, dataSourceUpdateClosure: () -> Void) {
+    public func performChanges(_ changes: ChangeSet, for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
         guard let tableView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }

@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol Shinkansen {
-    associatedtype View
+public protocol Shinkansen {
+    associatedtype View: ShinkansenView
 
     var view: View? { get set }
 }

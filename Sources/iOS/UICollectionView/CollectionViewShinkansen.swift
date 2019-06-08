@@ -15,10 +15,6 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
             guard let view = view else { return }
             view.dataSource = self
             view.delegate = self
-
-            for section in sections {
-                section.registerCells(in: view)
-            }
         }
     }
 
@@ -30,7 +26,6 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
             return
         }
 
-        section.registerCells(in: collectionView)
         collectionView.performBatchUpdates({
             let sectionIndex = sections.count
             sections.append(section)
@@ -39,33 +34,14 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
     }
 
     @discardableResult
-    public func createSection<DataSource: SectionDataSource, Cell: UICollectionViewCell>(
+    public func createSection<DataSource: SectionDataSource>(
         from dataSource: DataSource,
-        withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView {
+        cellConfigurator: @escaping CollectionViewDataSourceSection<DataSource>.CellConfigurator) -> CollectionViewDataSourceSection<DataSource> {
 
-        return createSection(from: dataSource, sectionCellConfigurator: { collectionView, indexPath, item in
-            let cell = collectionView.dequeueReusableCell(ofType: cellType, for: indexPath)
-            cellConfigurator(item, cell)
-            return cell
-        }, sectionCellRegistrator: { collectionView in
-            collectionView.register(cellType)
-        })
-    }
+        let section = CollectionViewDataSourceSection(dataSource: dataSource, cellConfigurator: cellConfigurator)
+        connectSection(section)
 
-    @discardableResult
-    public func createSection<DataSource: SectionDataSource, Cell: UICollectionViewCell>(
-        from dataSource: DataSource,
-        withCellType cellType: Cell.Type,
-        cellConfigurator: @escaping (DataSource.Item, Cell) -> Void) -> CollectionViewDataSourceSection<DataSource> where Cell: ReusableView & NibLoadableView {
-
-        return createSection(from: dataSource, sectionCellConfigurator: { collectionView, indexPath, item in
-            let cell = collectionView.dequeueReusableCell(ofType: cellType, for: indexPath)
-            cellConfigurator(item, cell)
-            return cell
-        }, sectionCellRegistrator: { collectionView in
-            collectionView.register(cellType)
-        })
+        return section
     }
 
     public func moveSection(_ section: CollectionViewSection, to destinationIndex: Int) {
@@ -110,20 +86,6 @@ public class CollectionViewShinkansen: NSObject, Shinkansen {
             updateClosure()
             collectionView.deleteSections(indexSet)
         })
-    }
-
-    func createSection<DataSource: SectionDataSource>(
-        from dataSource: DataSource,
-        sectionCellConfigurator: @escaping CollectionViewDataSourceSection<DataSource>.CellConfigurator,
-        sectionCellRegistrator: @escaping CollectionViewDataSourceSection<DataSource>.CellRegistrator) -> CollectionViewDataSourceSection<DataSource> {
-
-        let section = CollectionViewDataSourceSection(
-            dataSource: dataSource,
-            cellConfigurator: sectionCellConfigurator,
-            cellRegistrator: sectionCellRegistrator)
-
-        connectSection(section)
-        return section
     }
 }
 
@@ -191,16 +153,7 @@ extension CollectionViewShinkansen: UICollectionViewDelegate {
 
 // MARK: - SectionConductor
 extension CollectionViewShinkansen: SectionConductor {
-    public func registerCellsFor(_ section: Section) {
-        guard let collectionView = view,
-            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
-            else { return }
-
-        let section = sections[sectionIndex]
-        section.registerCells(in: collectionView)
-    }
-
-    public func reloadSection(_ section: Section) {
+    public func reloadSection(_ section: ShinkansenSection) {
         guard let collectionView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }
@@ -209,7 +162,7 @@ extension CollectionViewShinkansen: SectionConductor {
         collectionView.reloadSections(sectionIndexSet)
     }
 
-    public func reloadItems(at indices: [Int], for section: Section, dataSourceUpdateClosure: () -> Void) {
+    public func reloadItems(at indices: [Int], for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
         guard !indices.isEmpty else {
             return
         }
@@ -229,7 +182,7 @@ extension CollectionViewShinkansen: SectionConductor {
         })
     }
 
-    public func performChanges(_ changes: ChangeSet, for section: Section, dataSourceUpdateClosure: () -> Void) {
+    public func performChanges(_ changes: ChangeSet, for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
         guard let collectionView = view,
             let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
             else { return }
