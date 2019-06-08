@@ -98,5 +98,5 @@ class RxDataSource<Item>: DataSource {
 The currently preferred way of installation is through [Carthage](https://github.com/Carthage/Carthage):
 
 ```
-github "simba909/Shinkansen" "master"
+github "isotopsweden/Shinkansen" "master"
 ```
