@@ -8,18 +8,14 @@
 import UIKit
 
 public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection, DataSourceConductor where DataSource: SectionDataSource {
-    public typealias CellRegistrator = (UICollectionView) -> Void
-    public typealias HeaderViewRegistrator = (UICollectionView) -> Void
-    public typealias HeaderViewConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
-    public typealias CellConfigurator = (UICollectionView, IndexPath, DataSource.Item) -> UICollectionViewCell
+    public typealias HeaderConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
+    public typealias CellConfigurator = (UICollectionView, DataSource.Item, IndexPath) -> UICollectionViewCell
     public typealias SelectionHandler = (DataSource.Item) -> Void
 
     private let dataSource: DataSource
-    private let cellRegistrator: CellRegistrator
     private let cellConfigurator: CellConfigurator
 
-    private var headerViewRegistrator: HeaderViewRegistrator?
-    private var headerViewConfigurator: HeaderViewConfigurator?
+    private var headerConfigurator: HeaderConfigurator?
 
     public var headerReferenceSize: CGSize?
 
@@ -52,22 +48,15 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
 
     public var selectionHandler: SelectionHandler?
 
-    public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator, cellRegistrator: @escaping CellRegistrator) {
+    public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator) {
         self.dataSource = dataSource
         self.cellConfigurator = cellConfigurator
-        self.cellRegistrator = cellRegistrator
         super.init()
     }
 
     public func setConductor(_ conductor: SectionConductor) {
         self.conductor = conductor
         dataSource.setConductor(self)
-    }
-
-    public func registerCells(in collectionView: UICollectionView) {
-        registerPlaceholderViews(in: collectionView)
-        headerViewRegistrator?(collectionView)
-        cellRegistrator(collectionView)
     }
 
     public func sizeForHeader() -> CGSize {
@@ -90,11 +79,11 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = dataSource.items[indexPath.row]
-        return cellConfigurator(collectionView, indexPath, item)
+        return cellConfigurator(collectionView, item, indexPath)
     }
-    
+
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerViewConfigurator = headerViewConfigurator else {
+        guard let headerViewConfigurator = headerConfigurator else {
             let cell: UICollectionReusableView
 
             switch kind {
@@ -141,32 +130,8 @@ extension CollectionViewDataSourceSection {
         return "EmptyFooter"
     }
 
-    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Void) where Header: ReusableView {
-        setSectionHeader({ collectionView in
-            collectionView.registerHeader(headerType)
-        }, configurator: { collectionView, indexPath in
-            let header = collectionView.dequeueReusableHeader(ofType: headerType, for: indexPath)
-            configurator(header)
-            return header
-        })
-    }
-
-    public func setHeader<Header: UICollectionReusableView>(_ headerType: Header.Type, configurator: @escaping (Header) -> Void) where Header: ReusableView & NibLoadableView {
-        setSectionHeader({ collectionView in
-            collectionView.registerHeader(headerType)
-        }, configurator: { collectionView, indexPath in
-            let header = collectionView.dequeueReusableHeader(ofType: headerType, for: indexPath)
-            configurator(header)
-            return header
-        })
-    }
-
-    private func setSectionHeader(_ registrator: @escaping HeaderViewRegistrator, configurator: @escaping HeaderViewConfigurator) {
-        self.headerViewRegistrator = registrator
-        self.headerViewConfigurator = configurator
-
-        conductor?.registerCellsFor(self)
-        conductor?.reloadSection(self)
+    public func configureHeader(configurator: @escaping HeaderConfigurator) {
+        self.headerConfigurator = configurator
     }
 }
 

@@ -29,15 +29,24 @@ class DetailViewController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = .white
 
+        collectionView.register(SimpleTextCollectionViewCell.self)
+        collectionView.registerHeader(SimpleHeaderSupplementaryView.self)
+
         let dataSource = ArrayBackedDataSource(items: ["Metallica", "Slayer"])
-        let bandsSection = shinkansen.createSection(from: dataSource, withCellType: SimpleTextCollectionViewCell.self) { item, cell in
+        let bandsSection = shinkansen.createSection(from: dataSource) { collectionView, item, indexPath in
+            let cell = collectionView.dequeueReusableCell(ofType: SimpleTextCollectionViewCell.self, for: indexPath)
             cell.setText(item)
+
+            return cell
         }
 
         bandsSection.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
         bandsSection.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 32)
-        bandsSection.setHeader(SimpleHeaderSupplementaryView.self) { header in
-            header.title = "Collection View Header"
+        bandsSection.configureHeader { collectionView, indexPath in
+            let cell = collectionView.dequeueReusableHeader(ofType: SimpleHeaderSupplementaryView.self, for: indexPath)
+            cell.title = "Collection View Header"
+
+            return cell
         }
 
         shinkansen.view = collectionView

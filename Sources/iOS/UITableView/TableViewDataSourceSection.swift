@@ -8,12 +8,10 @@
 import UIKit
 
 public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSection where DataSource: SectionDataSource {
-    public typealias CellConfigurator = (UITableView, IndexPath, DataSource.Item) -> UITableViewCell
-    public typealias CellRegistrator = (UITableView) -> Void
+    public typealias CellConfigurator = (UITableView, DataSource.Item, IndexPath) -> UITableViewCell
 
     private let dataSource: DataSource
     private let cellConfigurator: CellConfigurator
-    private let cellRegistrator: CellRegistrator
 
     private weak var conductor: SectionConductor?
 
@@ -25,10 +23,9 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
         }
     }
 
-    public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator, cellRegistrator: @escaping CellRegistrator) {
+    public init(dataSource: DataSource, cellConfigurator: @escaping CellConfigurator) {
         self.dataSource = dataSource
         self.cellConfigurator = cellConfigurator
-        self.cellRegistrator = cellRegistrator
 
         super.init()
     }
@@ -39,7 +36,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
     }
 
     public func registerCells(in tableView: UITableView) {
-        cellRegistrator(tableView)
+        // Unused
     }
 
     // MARK: - UITableViewDataSource
@@ -50,7 +47,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = dataSource.items[indexPath.row]
-        return cellConfigurator(tableView, indexPath, item)
+        return cellConfigurator(tableView, item, indexPath)
     }
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
