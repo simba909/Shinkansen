@@ -10,7 +10,7 @@ import UIKit
 public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection, DataSourceConductor where DataSource: SectionDataSource {
     public typealias HeaderConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
     public typealias CellConfigurator = (UICollectionView, DataSource.Item, IndexPath) -> UICollectionViewCell
-    public typealias SelectionHandler = (DataSource.Item) -> Void
+    public typealias SelectionHandler = (DataSource.Item, IndexPath) -> Void
 
     private let dataSource: DataSource
     private let cellConfigurator: CellConfigurator
@@ -110,7 +110,7 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = dataSource.items[indexPath.row]
-        selectionHandler?(item)
+        selectionHandler?(item, indexPath)
     }
 
     // MARK: - Private functions

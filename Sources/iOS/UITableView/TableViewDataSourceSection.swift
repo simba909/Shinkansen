@@ -15,7 +15,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
 
     private weak var conductor: SectionConductor?
 
-    public var rowSelectionClosure: ((DataSource.Item) -> Void)?
+    public var rowSelectionClosure: ((DataSource.Item, IndexPath) -> Void)?
 
     public var sectionHeader: String? {
         didSet {
@@ -58,7 +58,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = dataSource.items[indexPath.row]
-        rowSelectionClosure?(item)
+        rowSelectionClosure?(item, indexPath)
     }
 }
 
