@@ -22,6 +22,3 @@ class SimpleTextCollectionViewCell: UICollectionViewCell {
         label.text = text
     }
 }
-
-extension SimpleTextCollectionViewCell: ReusableView {}
-extension SimpleTextCollectionViewCell: NibLoadableView {}

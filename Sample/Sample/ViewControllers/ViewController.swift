@@ -10,8 +10,6 @@ import UIKit
 import Shinkansen
 import DangoKit
 
-extension UITableViewCell: ReusableView {}
-
 class ViewController: UITableViewController {
     private let shinkansen = TableViewShinkansen()
     private let communicator = AlamofireCommunicator()
@@ -21,7 +19,7 @@ class ViewController: UITableViewController {
 
         title = "Sample"
 
-        tableView.register(UITableViewCell.self)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
         configureSections()
         shinkansen.view = tableView
@@ -31,7 +29,7 @@ class ViewController: UITableViewController {
         let channelRepository = ChannelRepository(communicator: communicator)
         let channelDataSource = RepositoryDataSource(repository: channelRepository)
         let channelSection = shinkansen.createSection(from: channelDataSource) { tableView, channel, indexPath in
-            let cell = tableView.dequeueReusableCell(ofType: UITableViewCell.self, at: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = channel.name
 
             return cell
@@ -41,7 +39,7 @@ class ViewController: UITableViewController {
 
         let fruitsDataSource = ArrayBackedDataSource(items: ["Apple", "Banana"])
         let fruitsSection = shinkansen.createSection(from: fruitsDataSource) { tableView, fruit, indexPath in
-            let cell = tableView.dequeueReusableCell(ofType: UITableViewCell.self, at: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = fruit
 
             return cell
@@ -55,7 +53,7 @@ class ViewController: UITableViewController {
         let repository = PlayingNowRepository(communicator: communicator)
         let nowPlayingDataSource = PlayingNowDataSource(repository: repository)
         let nowPlayingSection = shinkansen.createSection(from: nowPlayingDataSource) { tableView, item, indexPath in
-            let cell = tableView.dequeueReusableCell(ofType: UITableViewCell.self, at: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             cell.textLabel?.text = item.currently?.title ?? "Nothing playing"
 
             return cell

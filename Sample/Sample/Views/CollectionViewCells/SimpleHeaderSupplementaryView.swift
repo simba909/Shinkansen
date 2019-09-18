@@ -28,6 +28,3 @@ final class SimpleHeaderSupplementaryView: UICollectionReusableView {
         // Initialization code
     }
 }
-
-extension SimpleHeaderSupplementaryView: ReusableView {}
-extension SimpleHeaderSupplementaryView: NibLoadableView {}

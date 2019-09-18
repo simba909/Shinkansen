@@ -29,12 +29,17 @@ class DetailViewController: UICollectionViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = .white
 
-        collectionView.register(SimpleTextCollectionViewCell.self)
-        collectionView.registerHeader(SimpleHeaderSupplementaryView.self)
+        let nib = UINib(nibName: "SimpleTextCollectionViewCell", bundle: Bundle.main)
+        collectionView.register(nib, forCellWithReuseIdentifier: "TextCell")
+
+        collectionView.register(
+            SimpleHeaderSupplementaryView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "HeaderCell")
 
         let dataSource = ArrayBackedDataSource(items: ["Metallica", "Slayer"])
         let bandsSection = shinkansen.createSection(from: dataSource) { collectionView, item, indexPath in
-            let cell = collectionView.dequeueReusableCell(ofType: SimpleTextCollectionViewCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath) as! SimpleTextCollectionViewCell
             cell.setText(item)
 
             return cell
@@ -43,7 +48,11 @@ class DetailViewController: UICollectionViewController {
         bandsSection.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
         bandsSection.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 32)
         bandsSection.configureHeader { collectionView, indexPath in
-            let cell = collectionView.dequeueReusableHeader(ofType: SimpleHeaderSupplementaryView.self, for: indexPath)
+            let cell = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: "HeaderCell",
+                for: indexPath) as! SimpleHeaderSupplementaryView
+
             cell.title = "Collection View Header"
 
             return cell

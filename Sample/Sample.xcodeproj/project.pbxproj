@@ -14,7 +14,6 @@
 		F413AF322291D54F0080A352 /* Channel+Differentiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413AF312291D54F0080A352 /* Channel+Differentiable.swift */; };
 		F438826A22271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826822271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift */; };
 		F438826B22271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F438826922271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib */; };
-		F438826E222722FA00CAB7C9 /* SimpleTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */; };
 		F43882712227234100CAB7C9 /* ArrayBackedDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43882702227234100CAB7C9 /* ArrayBackedDataSource.swift */; };
 		F453439622324D3D00403A8E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F453439422324D3D00403A8E /* Alamofire.framework */; };
 		F453439722324D3D00403A8E /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F453439522324D3D00403A8E /* AlamofireImage.framework */; };
@@ -38,7 +37,6 @@
 		F413AF312291D54F0080A352 /* Channel+Differentiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Channel+Differentiable.swift"; sourceTree = "<group>"; };
 		F438826822271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTextCollectionViewCell.swift; sourceTree = "<group>"; };
 		F438826922271D8400CAB7C9 /* SimpleTextCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleTextCollectionViewCell.xib; sourceTree = "<group>"; };
-		F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewSection.swift; sourceTree = "<group>"; };
 		F43882702227234100CAB7C9 /* ArrayBackedDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayBackedDataSource.swift; sourceTree = "<group>"; };
 		F453439422324D3D00403A8E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		F453439522324D3D00403A8E /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
@@ -102,14 +100,6 @@
 			path = CollectionViewCells;
 			sourceTree = "<group>";
 		};
-		F438826C222722E800CAB7C9 /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				F438826D222722FA00CAB7C9 /* SimpleTableViewSection.swift */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
 		F438826F2227232A00CAB7C9 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,7 +144,6 @@
 				F4B6D71D21FE17A6003BB04D /* LaunchScreen.storyboard */,
 				F413AF2C2291CBC20080A352 /* Models */,
 				F453439322324D1100403A8E /* Networking */,
-				F438826C222722E800CAB7C9 /* Sections */,
 				F404CD732226FCCE00A0566E /* ViewControllers */,
 				F4E0A1DD221C7EF600F3CEED /* Views */,
 			);
@@ -292,7 +281,6 @@
 				F438826A22271D8400CAB7C9 /* SimpleTextCollectionViewCell.swift in Sources */,
 				F413AF2B2291CBA80080A352 /* RepositoryDataSource.swift in Sources */,
 				F413AF302291D4ED0080A352 /* DifferenceKit+Shinkansen.swift in Sources */,
-				F438826E222722FA00CAB7C9 /* SimpleTableViewSection.swift in Sources */,
 				F4C5F9FC2233BE7400080046 /* PlayingNowDataSource.swift in Sources */,
 				F453439922324DBD00403A8E /* AlamofireCommunicator.swift in Sources */,
 				F413AF322291D54F0080A352 /* Channel+Differentiable.swift in Sources */,
