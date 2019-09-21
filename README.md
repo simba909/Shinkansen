@@ -1,6 +1,7 @@
 # 🚅 Shinkansen
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 Shinkansen is a framework for declaratively building your `UITableView` or `UICollectionView`:
 
@@ -103,7 +104,13 @@ class RxDataSource<Item>: SectionDataSource {
 ```
 
 ## Installation
-The currently preferred way of installation is through [Carthage](https://github.com/Carthage/Carthage):
+The preferred way of installation is through [Swift Package Manager](https://github.com/apple/swift-package-manager). If you're using Xcode 11, you can add Endpoints as a dependency by simply clicking `File -> Swift Packages -> Add Package Dependency...`. You can also add it manually to your `Package.swift` file:
+
+```
+.package(url: "https://github.com/isotopsweden/Shinkansen", .branch("master"))
+```
+
+Installation through [Carthage](https://github.com/Carthage/Carthage) is also supported:
 
 ```
 github "isotopsweden/Shinkansen" "master"
