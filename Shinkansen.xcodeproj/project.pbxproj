@@ -101,6 +101,14 @@
 			children = (
 				F422150821FE14E100988D7D /* Shinkansen.h */,
 				F422150921FE14E100988D7D /* Info-iOS.plist */,
+				F493977D233677F3009C4421 /* Shinkansen */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		F493977D233677F3009C4421 /* Shinkansen */ = {
+			isa = PBXGroup;
+			children = (
 				F4C5F9FF2233C0EF00080046 /* ChangeSet.swift */,
 				F4C5F9FD2233BF9000080046 /* DataSourceConductor.swift */,
 				F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */,
@@ -110,7 +118,7 @@
 				F4D3381922ABC20F002B154F /* ShinkansenView.swift */,
 				F4E0A1D6221C6E3700F3CEED /* iOS */,
 			);
-			path = Sources;
+			path = Shinkansen;
 			sourceTree = "<group>";
 		};
 		F4E0A1D6221C6E3700F3CEED /* iOS */ = {
