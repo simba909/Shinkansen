@@ -1,2 +1,6 @@
 ## User settings
 xcuserdata/
+
+## Swift Package Manager
+.swiftpm
+
