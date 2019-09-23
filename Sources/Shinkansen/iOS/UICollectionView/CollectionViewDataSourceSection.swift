@@ -8,16 +8,20 @@
 import UIKit
 
 public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection, DataSourceConductor where DataSource: SectionDataSource {
-    public typealias HeaderConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
+
+    public typealias SupplementaryViewConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
+    public typealias SupplementaryViewSizeClosure = (UICollectionView) -> CGSize
     public typealias CellConfigurator = (UICollectionView, DataSource.Item, IndexPath) -> UICollectionViewCell
     public typealias SelectionHandler = (DataSource.Item, IndexPath) -> Void
 
     private let dataSource: DataSource
     private let cellConfigurator: CellConfigurator
 
-    private var headerConfigurator: HeaderConfigurator?
+    private var headerSizeClosure: SupplementaryViewSizeClosure?
+    private var headerConfigurator: SupplementaryViewConfigurator?
 
-    public var headerReferenceSize: CGSize?
+    private var footerSizeClosure: SupplementaryViewSizeClosure?
+    private var footerConfigurator: SupplementaryViewConfigurator?
 
     private weak var conductor: SectionConductor?
 
@@ -59,19 +63,26 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
         dataSource.setConductor(self)
     }
 
-    public func sizeForHeader() -> CGSize {
-        if let headerReferenceSize = headerReferenceSize {
-            return headerReferenceSize
-        }
+    // MARK: CollectionViewSection
 
-        return .zero
+    public func sizeForSupplementaryView(ofKind kind: String, in collectionView: UICollectionView) -> CGSize {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return headerSizeClosure?(collectionView) ?? .zero
+
+        case UICollectionView.elementKindSectionFooter:
+            return footerSizeClosure?(collectionView) ?? .zero
+
+        default:
+            return .zero
+        }
     }
 
     public func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize {
         return itemSize
     }
 
-    // MARK: - UICollectionViewDataSource
+    // MARK: UICollectionViewDataSource
 
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource.items.count
@@ -83,55 +94,46 @@ public final class CollectionViewDataSourceSection<DataSource>: NSObject, Collec
     }
 
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerViewConfigurator = headerConfigurator else {
-            let cell: UICollectionReusableView
-
-            switch kind {
-            case UICollectionView.elementKindSectionHeader:
-                cell = collectionView.dequeueReusableSupplementaryView(
-                    ofKind: kind,
-                    withReuseIdentifier: CollectionViewDataSourceSection.placeholderHeaderReuseIdentifier,
-                    for: indexPath)
-            case UICollectionView.elementKindSectionFooter:
-                cell = collectionView.dequeueReusableSupplementaryView(
-                    ofKind: kind,
-                    withReuseIdentifier: CollectionViewDataSourceSection.placeholderFooterReuseIdentifier,
-                    for: indexPath)
-            default:
-                fatalError("Failed to dequeue placeholder header")
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let configurator = headerConfigurator else {
+                fatalError("No header configurator set")
             }
 
-            cell.frame.size.height = 0
-            return cell
-        }
+            return configurator(collectionView, indexPath)
 
-        return headerViewConfigurator(collectionView, indexPath)
+        case UICollectionView.elementKindSectionFooter:
+            guard let configurator = footerConfigurator else {
+                fatalError("No footer configurator set")
+            }
+
+            return configurator(collectionView, indexPath)
+
+        default:
+            fatalError("viewForSupplementaryElementOfKind called for unknown kind: \(kind)")
+        }
     }
 
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = dataSource.items[indexPath.row]
         selectionHandler?(item, indexPath)
     }
-
-    // MARK: - Private functions
-
-    private func registerPlaceholderViews(in collectionView: UICollectionView) {
-        collectionView.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "EmptyHeader")
-    }
 }
 
 // MARK: - Headers
 extension CollectionViewDataSourceSection {
-    private static var placeholderHeaderReuseIdentifier: String {
-        return "EmptyHeader"
+    public func configureHeader(sizeClosure: @escaping SupplementaryViewSizeClosure,
+                                configurator: @escaping SupplementaryViewConfigurator) {
+
+        headerSizeClosure = sizeClosure
+        headerConfigurator = configurator
     }
 
-    private static var placeholderFooterReuseIdentifier: String {
-        return "EmptyFooter"
-    }
+    public func configureFooter(sizeClosure: @escaping SupplementaryViewSizeClosure,
+                                configurator: @escaping SupplementaryViewConfigurator) {
 
-    public func configureHeader(configurator: @escaping HeaderConfigurator) {
-        self.headerConfigurator = configurator
+        footerSizeClosure = sizeClosure
+        footerConfigurator = configurator
     }
 }
 

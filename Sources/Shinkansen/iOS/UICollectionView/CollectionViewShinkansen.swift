@@ -111,7 +111,16 @@ extension CollectionViewShinkansen: UICollectionViewDelegateFlowLayout {
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let section = sections[section]
-        return section.sizeForHeader()
+        return section.sizeForSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            in: collectionView)
+    }
+
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let section = sections[section]
+        return section.sizeForSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionFooter,
+            in: collectionView)
     }
 }
 
@@ -197,7 +206,7 @@ extension CollectionViewShinkansen: SectionConductor {
             // Allow the data source to update
             dataSourceUpdateClosure()
 
-            // Perform UITableView updates
+            // Perform UICollectionView updates
             collectionView.deleteItems(at: deletionIndexPaths)
             collectionView.insertItems(at: insertIndexPaths)
 

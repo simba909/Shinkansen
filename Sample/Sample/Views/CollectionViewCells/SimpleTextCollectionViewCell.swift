@@ -13,12 +13,17 @@ class SimpleTextCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet private weak var label: UILabel!
 
+    var text: String? {
+        get {
+            return label.text
+        }
+        set {
+            label?.text = newValue
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-
-    func setText(_ text: String) {
-        label.text = text
     }
 }
