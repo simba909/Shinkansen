@@ -12,7 +12,7 @@ public protocol CollectionViewSection: ShinkansenSection, UICollectionViewDelega
     var minimumLineSpacing: CGFloat { get set }
     var minimumInteritemSpacing: CGFloat { get set }
 
-    func sizeForHeader() -> CGSize
+    func sizeForSupplementaryView(ofKind kind: String, in collectionView: UICollectionView) -> CGSize
     func sizeForItem(in collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize
 }
 
@@ -21,7 +21,7 @@ public extension CollectionViewSection {
         return CGSize(width: UIScreen.main.bounds.width, height: 56.0)
     }
 
-    func sizeForHeader() -> CGSize {
+    func sizeForSupplementaryView(ofKind kind: String, in collectionView: UICollectionView) -> CGSize {
         return .zero
     }
 

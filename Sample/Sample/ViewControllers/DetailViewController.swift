@@ -32,22 +32,39 @@ class DetailViewController: UICollectionViewController {
         let nib = UINib(nibName: "SimpleTextCollectionViewCell", bundle: Bundle.main)
         collectionView.register(nib, forCellWithReuseIdentifier: "TextCell")
 
+        let headerBundle = Bundle(for: SimpleHeaderSupplementaryView.self)
+        let headerNib = UINib(nibName: "SimpleHeaderSupplementaryView", bundle: headerBundle)
+
         collectionView.register(
-            SimpleHeaderSupplementaryView.self,
+            headerNib,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "HeaderCell")
 
-        let dataSource = ArrayBackedDataSource(items: ["Metallica", "Slayer"])
-        let bandsSection = shinkansen.createSection(from: dataSource) { collectionView, item, indexPath in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath) as! SimpleTextCollectionViewCell
-            cell.setText(item)
+        configureBandsSection()
 
-            return cell
-        }
+        shinkansen.view = collectionView
+    }
+}
+
+// MARK: - Configure bands section
+extension DetailViewController {
+    func configureBandsSection() {
+        let bandsSection = shinkansen.createSection(
+            from: ArrayBackedDataSource(items: ["Metallica", "Slayer"]),
+            cellConfigurator: { collectionView, bandName, indexPath in
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath) as! SimpleTextCollectionViewCell
+                cell.text = bandName
+
+                return cell
+        })
 
         bandsSection.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
-        bandsSection.headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: 32)
-        bandsSection.configureHeader { collectionView, indexPath in
+
+        bandsSection.configureSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            sizeClosure: { collectionView -> CGSize in
+                return CGSize(width: collectionView.bounds.width, height: 32)
+        }, configurator: { collectionView, indexPath -> UICollectionReusableView in
             let cell = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
                 withReuseIdentifier: "HeaderCell",
@@ -56,8 +73,6 @@ class DetailViewController: UICollectionViewController {
             cell.title = "Collection View Header"
 
             return cell
-        }
-
-        shinkansen.view = collectionView
+        })
     }
 }

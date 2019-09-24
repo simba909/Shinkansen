@@ -17,7 +17,6 @@ final class SimpleHeaderSupplementaryView: UICollectionReusableView {
         get {
             return titleLabel.text
         }
-
         set {
             titleLabel?.text = newValue
         }
