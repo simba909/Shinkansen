@@ -60,8 +60,10 @@ extension DetailViewController {
 
         bandsSection.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 80)
 
-        bandsSection.configureHeader(sizeClosure: { collectionView -> CGSize in
-            return CGSize(width: collectionView.bounds.width, height: 32)
+        bandsSection.configureSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            sizeClosure: { collectionView -> CGSize in
+                return CGSize(width: collectionView.bounds.width, height: 32)
         }, configurator: { collectionView, indexPath -> UICollectionReusableView in
             let cell = collectionView.dequeueReusableSupplementaryView(
                 ofKind: UICollectionView.elementKindSectionHeader,
