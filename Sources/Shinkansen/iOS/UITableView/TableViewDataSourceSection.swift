@@ -35,11 +35,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
         dataSource.setConductor(self)
     }
 
-    public func registerCells(in tableView: UITableView) {
-        // Unused
-    }
-
-    // MARK: - UITableViewDataSource
+    // MARK: UITableViewDataSource
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.items.count
@@ -54,7 +50,7 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
         return sectionHeader
     }
 
-    // MARK: - UITableViewDelegate
+    // MARK: UITableViewDelegate
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = dataSource.items[indexPath.row]

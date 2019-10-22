@@ -24,6 +24,7 @@
 		F4E0A1D8221C6E4F00F3CEED /* TableViewShinkansen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */; };
 		F4E0A1EC221C982200F3CEED /* SectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */; };
 		F4E0A1EE221C996500F3CEED /* TableViewDataSourceSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E0A1ED221C996500F3CEED /* TableViewDataSourceSection.swift */; };
+		F4EDF5FF235DDD150083FD01 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EDF5FE235DDD150083FD01 /* Conductor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		F4E0A1D7221C6E4F00F3CEED /* TableViewShinkansen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewShinkansen.swift; sourceTree = "<group>"; };
 		F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionDataSource.swift; sourceTree = "<group>"; };
 		F4E0A1ED221C996500F3CEED /* TableViewDataSourceSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceSection.swift; sourceTree = "<group>"; };
+		F4EDF5FE235DDD150083FD01 /* Conductor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				F4C5F9FF2233C0EF00080046 /* ChangeSet.swift */,
+				F4EDF5FE235DDD150083FD01 /* Conductor.swift */,
 				F4C5F9FD2233BF9000080046 /* DataSourceConductor.swift */,
 				F4E0A1D0221C6D9E00F3CEED /* SectionConductor.swift */,
 				F4E0A1EB221C982200F3CEED /* SectionDataSource.swift */,
@@ -223,6 +226,7 @@
 				F404CD782226FD2400A0566E /* CollectionViewSection.swift in Sources */,
 				F4D3381A22ABC20F002B154F /* ShinkansenView.swift in Sources */,
 				F4E0A1EE221C996500F3CEED /* TableViewDataSourceSection.swift in Sources */,
+				F4EDF5FF235DDD150083FD01 /* Conductor.swift in Sources */,
 				F4D3381C22ABC28A002B154F /* UITableView+ShinkansenView.swift in Sources */,
 				F404CD7C2226FF9400A0566E /* Shinkansen.swift in Sources */,
 				F4E0A1EC221C982200F3CEED /* SectionDataSource.swift in Sources */,

@@ -10,7 +10,12 @@ import UIKit
 import Shinkansen
 
 class ViewController: UITableViewController {
-    private let shinkansen = TableViewShinkansen()
+
+    enum Section {
+        case fruits
+    }
+
+    private let shinkansen = TableViewShinkansen<Section>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +29,8 @@ class ViewController: UITableViewController {
     }
 
     private func configureSections() {
-        let fruitsSection = shinkansen.createSection(
-            from: ArrayBackedDataSource(items: ["Apple", "Banana"]),
+        let fruitsSection = TableViewDataSourceSection(
+            dataSource: ArrayBackedDataSource(items: ["Apple", "Banana"]),
             cellConfigurator: { tableView, fruit, indexPath in
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
                 cell.textLabel?.text = fruit
@@ -38,5 +43,7 @@ class ViewController: UITableViewController {
             let detailViewController = DetailViewController(title: fruit)
             self?.navigationController?.pushViewController(detailViewController, animated: true)
         }
+
+        shinkansen.connectSection(fruitsSection, identifiedBy: .fruits)
     }
 }

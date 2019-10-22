@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection, DataSourceConductor where DataSource: SectionDataSource {
+public final class CollectionViewDataSourceSection<DataSource>: NSObject, CollectionViewSection where DataSource: SectionDataSource {
 
     public typealias SupplementaryViewConfigurator = (UICollectionView, IndexPath) -> UICollectionReusableView
     public typealias SupplementaryViewSizeClosure = (UICollectionView) -> CGSize
@@ -111,7 +111,7 @@ extension CollectionViewDataSourceSection {
 }
 
 // MARK: - DataSourceConductor
-extension CollectionViewDataSourceSection {
+extension CollectionViewDataSourceSection: DataSourceConductor {
     public func reloadItems(at indices: [Int], updateClosure: UpdateClosure) {
         conductor?.reloadItems(at: indices, for: self, dataSourceUpdateClosure: updateClosure)
     }
