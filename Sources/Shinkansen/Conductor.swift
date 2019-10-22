@@ -32,14 +32,20 @@ class Conductor<SectionIdentifier>: SectionConductor where SectionIdentifier: Ha
     }
 
     func reloadSection(_ section: ShinkansenSection) {
-        reloadClosure(sectionIdentifier)
+        DispatchQueue.main.async { [reloadClosure, sectionIdentifier] in
+            reloadClosure(sectionIdentifier)
+        }
     }
 
-    func reloadItems(at indices: [Int], for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
-        itemReloadClosure(sectionIdentifier, IndexSet(indices), dataSourceUpdateClosure)
+    func reloadItems(at indices: [Int], for section: ShinkansenSection, dataSourceUpdateClosure: @escaping () -> Void) {
+        DispatchQueue.main.async { [itemReloadClosure, sectionIdentifier] in
+            itemReloadClosure(sectionIdentifier, IndexSet(indices), dataSourceUpdateClosure)
+        }
     }
 
-    func performChanges(_ changes: ChangeSet, for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
-        performChangesClosure(sectionIdentifier, changes, dataSourceUpdateClosure)
+    func performChanges(_ changes: ChangeSet, for section: ShinkansenSection, dataSourceUpdateClosure: @escaping () -> Void) {
+        DispatchQueue.main.async { [performChangesClosure, sectionIdentifier] in
+            performChangesClosure(sectionIdentifier, changes, dataSourceUpdateClosure)
+        }
     }
 }

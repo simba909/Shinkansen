@@ -8,10 +8,17 @@
 
 import Shinkansen
 
-struct ArrayBackedDataSource: SectionDataSource {
-    let items: [String]
+class ArrayBackedDataSource<Item>: SectionDataSource {
+
+    private weak var conductor: DataSourceConductor?
+
+    private(set) var items: [Item]
+
+    init(items: [Item]) {
+        self.items = items
+    }
 
     func setConductor(_ conductor: DataSourceConductor) {
-        // Unused
+        self.conductor = conductor
     }
 }

@@ -60,11 +60,11 @@ public final class TableViewDataSourceSection<DataSource>: NSObject, TableViewSe
 
 // MARK: - DataSourceConductor
 extension TableViewDataSourceSection: DataSourceConductor {
-    public func reloadItems(at indices: [Int], updateClosure: () -> Void) {
+    public func reloadItems(at indices: [Int], updateClosure: @escaping UpdateClosure) {
         conductor?.reloadItems(at: indices, for: self, dataSourceUpdateClosure: updateClosure)
     }
 
-    public func performChanges(_ changes: ChangeSet, updateClosure: () -> Void) {
+    public func performChanges(_ changes: ChangeSet, updateClosure: @escaping UpdateClosure) {
         conductor?.performChanges(changes, for: self, dataSourceUpdateClosure: updateClosure)
     }
 }

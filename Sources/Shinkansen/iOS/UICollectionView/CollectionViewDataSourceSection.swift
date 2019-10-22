@@ -112,11 +112,11 @@ extension CollectionViewDataSourceSection {
 
 // MARK: - DataSourceConductor
 extension CollectionViewDataSourceSection: DataSourceConductor {
-    public func reloadItems(at indices: [Int], updateClosure: UpdateClosure) {
+    public func reloadItems(at indices: [Int], updateClosure: @escaping UpdateClosure) {
         conductor?.reloadItems(at: indices, for: self, dataSourceUpdateClosure: updateClosure)
     }
 
-    public func performChanges(_ changes: ChangeSet, updateClosure: UpdateClosure) {
+    public func performChanges(_ changes: ChangeSet, updateClosure: @escaping UpdateClosure) {
         conductor?.performChanges(changes, for: self, dataSourceUpdateClosure: updateClosure)
     }
 }
