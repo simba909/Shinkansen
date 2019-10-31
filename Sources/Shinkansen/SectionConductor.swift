@@ -11,6 +11,6 @@ public protocol SectionConductor: AnyObject {
     typealias UpdateClosure = () -> Void
 
     func reloadSection(_ section: ShinkansenSection)
-    func reloadItems(at indices: [Int], for section: ShinkansenSection, dataSourceUpdateClosure: UpdateClosure)
-    func performChanges(_ changes: ChangeSet, for section: ShinkansenSection, dataSourceUpdateClosure: UpdateClosure)
+    func reloadItems(at indices: [Int], for section: ShinkansenSection, dataSourceUpdateClosure: @escaping UpdateClosure)
+    func performChanges(_ changes: ChangeSet, for section: ShinkansenSection, dataSourceUpdateClosure: @escaping UpdateClosure)
 }

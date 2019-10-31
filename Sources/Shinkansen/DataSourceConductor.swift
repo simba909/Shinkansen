@@ -10,6 +10,6 @@ import Foundation
 public protocol DataSourceConductor: AnyObject {
     typealias UpdateClosure = () -> Void
 
-    func reloadItems(at indices: [Int], updateClosure: UpdateClosure)
-    func performChanges(_ changes: ChangeSet, updateClosure: UpdateClosure)
+    func reloadItems(at indices: [Int], updateClosure: @escaping UpdateClosure)
+    func performChanges(_ changes: ChangeSet, updateClosure: @escaping UpdateClosure)
 }

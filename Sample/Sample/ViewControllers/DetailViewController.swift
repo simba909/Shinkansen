@@ -10,7 +10,12 @@ import UIKit
 import Shinkansen
 
 class DetailViewController: UICollectionViewController {
-    private let shinkansen = CollectionViewShinkansen()
+
+    enum Section {
+        case bands
+    }
+
+    private let shinkansen = CollectionViewShinkansen<Section>()
 
     init(title: String) {
         let layout = UICollectionViewFlowLayout()
@@ -49,8 +54,8 @@ class DetailViewController: UICollectionViewController {
 // MARK: - Configure bands section
 extension DetailViewController {
     func configureBandsSection() {
-        let bandsSection = shinkansen.createSection(
-            from: ArrayBackedDataSource(items: ["Metallica", "Slayer"]),
+        let bandsSection = CollectionViewDataSourceSection(
+            dataSource: ArrayBackedDataSource(items: ["Metallica", "Slayer"]),
             cellConfigurator: { collectionView, bandName, indexPath in
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TextCell", for: indexPath) as! SimpleTextCollectionViewCell
                 cell.text = bandName
@@ -74,5 +79,7 @@ extension DetailViewController {
 
             return cell
         })
+
+        shinkansen.connectSection(bandsSection, identifiedBy: .bands)
     }
 }

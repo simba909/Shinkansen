@@ -7,8 +7,12 @@
 
 import UIKit
 
-public class TableViewShinkansen: NSObject, Shinkansen {
-    public private(set) var sections: [TableViewSection] = []
+public class TableViewShinkansen<SectionIdentifier>: NSObject, Shinkansen, UITableViewDelegate, UITableViewDataSource
+where SectionIdentifier: Hashable {
+
+    private var sections: [SectionIdentifier: TableViewSection] = [:]
+    private var sectionOrder: [SectionIdentifier] = []
+    private var conductors: [Conductor<SectionIdentifier>] = []
 
     public weak var view: UITableView? {
         didSet {
@@ -18,116 +22,119 @@ public class TableViewShinkansen: NSObject, Shinkansen {
         }
     }
 
-    public func connectSection(_ section: TableViewSection) {
-        section.setConductor(self)
+    public func connectSection(_ section: TableViewSection, identifiedBy identifier: SectionIdentifier) {
+        let conductor = createConductor(for: identifier)
+        section.setConductor(conductor)
+        conductors.append(conductor)
+
+        let updateClosure: () -> Void = {
+            self.sections[identifier] = section
+            self.sectionOrder.append(identifier)
+        }
 
         guard let tableView = view else {
-            sections.append(section)
+            updateClosure()
             return
         }
 
         tableView.performBatchUpdates({
+            updateClosure()
             let sectionIndex = sections.count
-            sections.append(section)
             tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
         })
     }
 
-    @discardableResult
-    public func createSection<DataSource: SectionDataSource>(
-        from dataSource: DataSource,
-        cellConfigurator: @escaping TableViewDataSourceSection<DataSource>.CellConfigurator) -> TableViewDataSourceSection<DataSource> {
+    public func moveSection(_ identifier: SectionIdentifier, to destinationIndex: Int) {
+        guard let sectionIndex = sectionOrder.firstIndex(of: identifier) else {
+            return
+        }
 
-        let section = TableViewDataSourceSection(dataSource: dataSource, cellConfigurator: cellConfigurator)
-        connectSection(section)
+        let updateClosure: () -> Void = {
+            self.sectionOrder.remove(at: sectionIndex)
+            self.sectionOrder.insert(identifier, at: destinationIndex)
+        }
 
-        return section
+        guard let tableView = view else {
+            updateClosure()
+            return
+        }
+
+        tableView.performBatchUpdates({
+            updateClosure()
+
+            tableView.moveSection(sectionIndex, toSection: destinationIndex)
+        })
     }
-}
 
-// MARK: - UITableViewDataSource
-extension TableViewShinkansen: UITableViewDataSource {
+    public func removeSection(_ identifier: SectionIdentifier) {
+        guard let sectionIndex = sectionOrder.firstIndex(of: identifier) else {
+            return
+        }
+
+        let updateClosure: () -> Void = {
+            self.sections.removeValue(forKey: identifier)
+            self.sectionOrder.remove(at: sectionIndex)
+            self.conductors.removeAll(where: { $0.sectionIdentifier == identifier })
+        }
+
+        guard let tableView = view else {
+            updateClosure()
+            return
+        }
+
+        tableView.performBatchUpdates({
+            updateClosure()
+
+            let indexSet = IndexSet(integer: sectionIndex)
+            tableView.deleteSections(indexSet, with: .automatic)
+        })
+    }
+
+    public func indexOfSection(_ identifier: SectionIdentifier) -> Int? {
+        return sectionOrder.firstIndex(of: identifier)
+    }
+
+    public func sectionIdentifier(for index: Int) -> SectionIdentifier? {
+        guard sectionOrder.indices.contains(index) else {
+            return nil
+        }
+
+        return sectionOrder[index]
+    }
+
+    public func section(at index: Int) -> TableViewSection? {
+        guard sectionOrder.indices.contains(index) else {
+            return nil
+        }
+
+        let sectionIdentifier = sectionOrder[index]
+        return sections[sectionIdentifier]
+    }
+
+    // MARK: - UITableViewDataSource
     public func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].tableView(tableView, numberOfRowsInSection: 0)
+        let section = self.section(at: section)!
+        return section.tableView(tableView, numberOfRowsInSection: 0)
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = sections[indexPath.section]
+        let section = self.section(at: indexPath.section)!
         return section.tableView(tableView, cellForRowAt: indexPath)
     }
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = sections[section]
+        let section = self.section(at: section)!
         return section.tableView?(tableView, titleForHeaderInSection: 0)
     }
-}
 
-// MARK: - UITableViewDelegate
-extension TableViewShinkansen: UITableViewDelegate {
+    // MARK: - UITableViewDelegate
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let section = sections[indexPath.section]
+        let section = self.section(at: indexPath.section)!
         let localIndexPath = IndexPath(row: indexPath.row, section: 0)
         section.tableView?(tableView, didSelectRowAt: localIndexPath)
-    }
-}
-
-// MARK: - SectionConductor
-extension TableViewShinkansen: SectionConductor {
-    public func reloadSection(_ section: ShinkansenSection) {
-        guard let tableView = view,
-            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
-            else { return }
-
-        let sectionIndices = IndexSet([sectionIndex])
-        tableView.reloadSections(sectionIndices, with: .automatic)
-    }
-
-    public func reloadItems(at indices: [Int], for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
-        guard !indices.isEmpty else {
-            return
-        }
-
-        guard let tableView = view,
-            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
-            else { return }
-
-        let reloadIndexPaths = indices.map { IndexPath(row: $0, section: sectionIndex) }
-
-        tableView.performBatchUpdates({
-            // Allow the data source to update
-            dataSourceUpdateClosure()
-
-            // Perform UITableView updates
-            tableView.reloadRows(at: reloadIndexPaths, with: .automatic)
-        })
-    }
-
-    public func performChanges(_ changes: ChangeSet, for section: ShinkansenSection, dataSourceUpdateClosure: () -> Void) {
-        guard let tableView = view,
-            let sectionIndex = sections.firstIndex(where: { $0.id == section.id })
-            else { return }
-
-        let insertIndexPaths = changes.insertions.map { IndexPath(row: $0, section: sectionIndex) }
-        let deletionIndexPaths = changes.deletions.map { IndexPath(row: $0, section: sectionIndex) }
-        let moveIndexPaths = changes.moves.map { move -> (origin: IndexPath, destination: IndexPath) in
-            return (IndexPath(row: move.from, section: sectionIndex), IndexPath(row: move.to, section: sectionIndex))
-        }
-
-        tableView.performBatchUpdates({
-            // Allow the data source to update
-            dataSourceUpdateClosure()
-
-            // Perform UITableView updates
-            tableView.deleteRows(at: deletionIndexPaths, with: .automatic)
-            tableView.insertRows(at: insertIndexPaths, with: .automatic)
-
-            for move in moveIndexPaths {
-                tableView.moveRow(at: move.origin, to: move.destination)
-            }
-        })
     }
 }

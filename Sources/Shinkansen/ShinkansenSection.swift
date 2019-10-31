@@ -8,13 +8,5 @@
 import Foundation
 
 public protocol ShinkansenSection: AnyObject {
-    var id: Int { get }
-
     func setConductor(_ conductor: SectionConductor)
-}
-
-public extension ShinkansenSection {
-    var id: Int {
-        return ObjectIdentifier(self).hashValue
-    }
 }
